@@ -10,18 +10,17 @@ defmodule GameTest do
   end
 
   describe "Board.current_player" do
-    @board Board.empty
-    @board Board.update(@board, 5, "X") |> Board.update(8, "O") |> Board.update(2, "X")
+    board = Board.empty
+    board = Board.update(board, 5, "X") |> Board.update(8, "O") |> Board.update(2, "X")
     
     test "it returns 'O' when the turn count is odd" do
-      assert "O" == Game.current_player(@board)
+      assert "O" == Game.current_player(unquote(Macro.escape(board)))
     end
 
-    @board Board.update(@board, 6, "O")
+    board = Board.update(board, 6, "O")
     
     test "it returns 'X' when the turn count is even" do
-
-      assert "X" == Game.current_player(@board)
+      assert "X" == Game.current_player(unquote(Macro.escape(board)))
     end
   end
 end
