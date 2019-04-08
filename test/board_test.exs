@@ -15,4 +15,10 @@ defmodule BoardTest do
       assert !Board.is_full(%{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => nil, 7 => "X", 8 => "O", 9 => "X" })
     end
   end
+
+  test "it can update the board" do
+    board = Board.empty
+
+    assert %{ 1 => nil, 2 => nil, 3 => nil, 4 => nil, 5 => "X", 6 => nil, 7 => nil, 8 => nil, 9 => nil } == Board.update(board, 5, "X")
+  end
 end
