@@ -23,4 +23,15 @@ defmodule GameTest do
       assert "X" == Game.current_player(unquote(Macro.escape(board)))
     end
   end
+
+  test "it can determine if the game has been won across the top row" do
+    board = Board.empty
+    board = Board.update(board, 1, "X") 
+      |> Board.update(8, "O") 
+      |> Board.update(2, "X") 
+      |> Board.update(9, "O")
+      |> Board.update(3, "X")
+
+    assert Game.check_win(board)
+  end
 end
