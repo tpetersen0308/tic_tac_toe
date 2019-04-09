@@ -37,4 +37,8 @@ defmodule Game do
   def is_over(board) do
     check_win(board) or check_draw(board)
   end
+
+  def winner(board) do
+    if current_player(board) == "X", do: "O", else: "X"
+  end
 end
