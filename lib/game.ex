@@ -10,12 +10,8 @@ defmodule Game do
     {3, 5, 7}
   ]
 
-  def turn_count(board) do
-    Enum.filter(Map.values(board), &(&1)) |> Enum.count
-  end
-
   def current_player(board) do
-    if Integer.mod(turn_count(board), 2) == 0, do: "X", else: "O"
+    if Integer.mod(Board.turn_count(board), 2) == 0, do: "X", else: "O"
   end
 
   def check_win(board) do

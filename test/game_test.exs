@@ -5,13 +5,6 @@ defmodule GameTest do
   @empty_board Board.empty
   @cats_game_board %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
 
-  test "it can return the number of turns played so far" do
-    board = @empty_board
-    board = Board.update(board, 5, "X") |> Board.update(8, "O") |> Board.update(2, "X")
-
-    assert 3 == Game.turn_count(board)
-  end
-
   describe "Board.current_player" do
     board = @empty_board
     board = Board.update(board, 5, "X") |> Board.update(8, "O") |> Board.update(2, "X")
