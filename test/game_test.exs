@@ -76,15 +76,23 @@ defmodule GameTest do
     end
 
     test "it can tell when the game has ended in a win" do
-      board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "O", 9 => "X"}
+      board = %{ 1 => "X", 2 => "X", 3 => "O", 4 => "O", 5 => "X", 6 => "X", 7 => "O", 8 => "X", 9 => "O"}
 
       assert Game.is_over(board)
     end
   end
 
-  test "it can determine who the winner is" do
-    board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "O", 9 => "X"}
+  describe "Game.winner" do
+    test "it returns 'X' when X wins" do
+      board = %{ 1 => "X", 2 => "X", 3 => "O", 4 => "O", 5 => "X", 6 => "X", 7 => "O", 8 => "X", 9 => "O"}
 
-    assert "X" == Game.winner(board)
+      assert "X" == Game.winner(board)
+    end
+
+    test "it returns 'O' when O wins" do
+      board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "X", 5 => "X", 6 => nil, 7 => "O", 8 => "O", 9 => "O"}
+
+      assert "O" == Game.winner(board)
+    end
   end
 end
