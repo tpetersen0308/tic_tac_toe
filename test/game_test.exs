@@ -32,8 +32,14 @@ defmodule GameTest do
     end
 
     Enum.each(%{
-      "top row" => {1,2,3},
-      "middle row" => {4,5,6}
+      "top row" => {1, 2, 3},
+      "middle row" => {4, 5, 6},
+      "bottom row" => {7, 8, 9},
+      "left column" => {1, 4, 7},
+      "middle column" => {2, 5, 8},
+      "right column" => {3, 6, 9},
+      "NW to SE diagonal" => {1, 5, 9},
+      "SW to NE diagonal" => {3, 5, 7}
     }, fn {type, combo} ->
         test "it can determine a #{type} win" do
           board = Board.empty
