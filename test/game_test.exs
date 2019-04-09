@@ -5,18 +5,18 @@ defmodule GameTest do
   import Game
   import Board
 
-  @empty_board Board.empty
+  @empty_board empty()
   @cats_game_board %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
 
-  describe "Board.current_player" do
+  describe "Game.current_player" do
     board = @empty_board
-    board = Board.update(board, 5, "X") |> Board.update(8, "O") |> Board.update(2, "X")
+    board = update(board, 5, "X") |> update(8, "O") |> update(2, "X")
     
     test "it returns 'O' when the turn count is odd" do
       assert "O" == current_player(unquote(Macro.escape(board)))
     end
 
-    board = Board.update(board, 6, "O")
+    board = update(board, 6, "O")
     
     test "it returns 'X' when the turn count is even" do
       assert "X" == current_player(unquote(Macro.escape(board)))
@@ -42,9 +42,9 @@ defmodule GameTest do
     }, fn {type, combo} ->
         test "it can determine a #{type} win" do
           board = @empty_board
-            |> Board.update(elem(unquote(Macro.escape(combo)), 0), "X")
-            |> Board.update(elem(unquote(Macro.escape(combo)), 1), "X")
-            |> Board.update(elem(unquote(Macro.escape(combo)), 2), "X")
+            |> update(elem(unquote(Macro.escape(combo)), 0), "X")
+            |> update(elem(unquote(Macro.escape(combo)), 1), "X")
+            |> update(elem(unquote(Macro.escape(combo)), 2), "X")
 
           assert check_win(board)
         end 
