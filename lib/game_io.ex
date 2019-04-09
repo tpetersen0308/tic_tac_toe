@@ -5,11 +5,16 @@ defmodule GameIO do
     IO.puts(formatted_board)
   end
 
-  def format_rows(board) do
+  def format_cells(board) do
     Enum.map(board, fn {pos, token} -> 
       value = token || pos
       " #{value} "
     end)
+  end
+
+  def format_rows(board) do
+    
+    format_cells(board)
      |> Enum.chunk_every(3)
      |> Enum.map(fn row -> Enum.join(row, "|") end)
   end
