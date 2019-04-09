@@ -52,4 +52,10 @@ defmodule GameTest do
       end
     )
   end
+
+  test "it can check for a draw" do
+    board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
+    
+    assert Game.check_draw(board)
+  end
 end
