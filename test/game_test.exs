@@ -2,6 +2,9 @@ defmodule GameTest do
   use ExUnit.Case
   doctest Game
 
+  import Game
+  import Board
+
   @empty_board Board.empty
   @cats_game_board %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
 
@@ -10,13 +13,13 @@ defmodule GameTest do
     board = Board.update(board, 5, "X") |> Board.update(8, "O") |> Board.update(2, "X")
     
     test "it returns 'O' when the turn count is odd" do
-      assert "O" == Game.current_player(unquote(Macro.escape(board)))
+      assert "O" == current_player(unquote(Macro.escape(board)))
     end
 
     board = Board.update(board, 6, "O")
     
     test "it returns 'X' when the turn count is even" do
-      assert "X" == Game.current_player(unquote(Macro.escape(board)))
+      assert "X" == current_player(unquote(Macro.escape(board)))
     end
   end
 
@@ -24,7 +27,7 @@ defmodule GameTest do
     test "it will not identify nil series as a win" do
       board = @empty_board
 
-      assert !Game.check_win(board)
+      assert !check_win(board)
     end
 
     Enum.each(%{
@@ -43,25 +46,25 @@ defmodule GameTest do
             |> Board.update(elem(unquote(Macro.escape(combo)), 1), "X")
             |> Board.update(elem(unquote(Macro.escape(combo)), 2), "X")
 
-          assert Game.check_win(board)
+          assert check_win(board)
         end 
       end
     )
   end
 
   test "it can check for a draw" do
-    assert Game.check_draw(@cats_game_board)
+    assert check_draw(@cats_game_board)
   end
 
   describe "Game.is_over" do
     test "it can tell when the game has ended in a cats game" do
-      assert Game.is_over(@cats_game_board)
+      assert is_over(@cats_game_board)
     end
 
     test "it can tell when the game has ended in a win" do
       board = %{ 1 => "X", 2 => "X", 3 => "O", 4 => "O", 5 => "X", 6 => "X", 7 => "O", 8 => "X", 9 => "O"}
 
-      assert Game.is_over(board)
+      assert is_over(board)
     end
   end
 
@@ -69,27 +72,27 @@ defmodule GameTest do
     test "it returns 'X' when X wins" do
       board = %{ 1 => "X", 2 => "X", 3 => "O", 4 => "O", 5 => "X", 6 => "X", 7 => "O", 8 => "X", 9 => "O"}
 
-      assert "X" == Game.winner(board)
+      assert "X" == winner(board)
     end
 
     test "it returns 'O' when O wins" do
       board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "X", 5 => "X", 6 => nil, 7 => "O", 8 => "O", 9 => "O"}
 
-      assert "O" == Game.winner(board)
+      assert "O" == winner(board)
     end
   end
 
   describe "Game.is_valid_move" do
     test "can determine if a move is outside the range of board positions" do
-      assert !Game.is_valid_move(@empty_board, 10)
+      assert !is_valid_move(@empty_board, 10)
     end
 
     test "can determine if a move is an integer inside the range of board positions" do
-      assert Game.is_valid_move(@empty_board, 9)
+      assert is_valid_move(@empty_board, 9)
     end
 
     test "can determine if a move is not an integer" do
-      assert !Game.is_valid_move(@empty_board, "foo")
+      assert !is_valid_move(@empty_board, "foo")
     end
   end
 end
