@@ -24,14 +24,26 @@ defmodule GameTest do
     end
   end
 
-  test "it can determine if the game has been won across the top row" do
-    board = Board.empty
-    board = Board.update(board, 1, "X") 
-      |> Board.update(8, "O") 
-      |> Board.update(2, "X") 
-      |> Board.update(9, "O")
-      |> Board.update(3, "X")
+  describe "Game.check_win" do
+    test "it will not identify nil series as a win" do
+      board = Board.empty
 
-    assert Game.check_win(board)
+      assert !Game.check_win(board)
+    end
+
+    Enum.each(%{
+      "top row" => {1,2,3},
+      "middle row" => {4,5,6}
+    }, fn {type, combo} ->
+        test "it can determine a #{type} win" do
+          board = Board.empty
+            |> Board.update(elem(unquote(Macro.escape(combo)), 0), "X")
+            |> Board.update(elem(unquote(Macro.escape(combo)), 1), "X")
+            |> Board.update(elem(unquote(Macro.escape(combo)), 2), "X")
+
+          assert Game.check_win(board)
+        end 
+      end
+    )
   end
 end
