@@ -36,9 +36,15 @@ defmodule BoardTest do
     assert 3 == Board.turn_count(board)
   end
 
-  test "it can determine if a position is available" do
-    board = Board.update(@full_board, 6, nil)
+  describe "Board.is_available" do
+    test "it can determine if a position is available" do
+      board = Board.update(@full_board, 6, nil)
 
-    assert Board.is_available(board, 6)
+      assert Board.is_available(board, 6)
+    end
+
+    test "it can determine if a position is unavailable" do
+      assert !Board.is_available(@full_board, 6)
+    end
   end
 end
