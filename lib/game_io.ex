@@ -1,6 +1,15 @@
 defmodule GameIO do
   
   def print_board(board) do
-    IO.puts(" #{board[1] || 1} | #{board[2] || 2} | #{board[3] || 3} \n-----------\n #{board[4] || 4} | #{board[5] || 5} | #{board[6] || 6} \n-----------\n #{board[7] || 7} | #{board[8] || 8} | #{board[9] || 9} ")
+    rows = Enum.map(board, fn {pos, token} -> 
+      value = token || pos
+      " #{value} "
+    end)
+     |> Enum.chunk_every(3)
+     |> Enum.map(fn row -> Enum.join(row, "|") end)
+    
+    formatted_board = Enum.join(rows, "\n-----------\n")
+
+    IO.puts(formatted_board)
   end
 end
