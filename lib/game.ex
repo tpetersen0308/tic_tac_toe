@@ -10,6 +10,11 @@ defmodule Game do
     {3, 5, 7}
   ]
 
+
+  def is_board_full(board) do
+    Enum.all?(Map.values(board), &(&1))
+  end
+
   def turn_count(board) do
     Enum.filter(Map.values(board), &(&1)) |> Enum.count
   end
@@ -26,7 +31,7 @@ defmodule Game do
   end
 
   def check_draw(board) do
-    Board.is_full(board) and not check_win(board)
+    is_board_full(board) and not check_win(board)
   end
 
   def is_over(board) do

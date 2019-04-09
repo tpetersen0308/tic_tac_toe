@@ -9,6 +9,16 @@ defmodule GameTest do
     assert 3 == Game.turn_count(board)
   end
 
+  describe "Game.is_board_full" do
+    test "it returns true for a full board" do
+      assert Game.is_board_full(%{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "X", 8 => "O", 9 => "X" })
+    end
+
+    test "it returns false for a board that has at least one available position" do
+      assert !Game.is_board_full(%{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => nil, 7 => "X", 8 => "O", 9 => "X" })
+    end
+  end
+
   describe "Board.current_player" do
     board = Board.empty
     board = Board.update(board, 5, "X") |> Board.update(8, "O") |> Board.update(2, "X")
