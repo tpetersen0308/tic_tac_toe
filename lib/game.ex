@@ -23,6 +23,9 @@ defmodule Game do
       {pos1, pos2, pos3} = {elem(combo, 0), elem(combo, 1), elem(combo, 2)}
       board[pos1] == board[pos2] and board[pos1] == board[pos3] and !!board[pos1]
     end) 
-      # |> Enum.any?(&(&1))
+  end
+
+  def check_draw(board) do
+    Board.is_full(board) and not check_win(board)
   end
 end
