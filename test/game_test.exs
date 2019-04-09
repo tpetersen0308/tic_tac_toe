@@ -2,8 +2,11 @@ defmodule GameTest do
   use ExUnit.Case
   doctest Game
 
+  @empty_board Board.empty
+  @cats_game_board %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
+
   test "it can return the number of turns played so far" do
-    board = Board.empty
+    board = @empty_board
     board = Board.update(board, 5, "X") |> Board.update(8, "O") |> Board.update(2, "X")
 
     assert 3 == Game.turn_count(board)
@@ -11,16 +14,16 @@ defmodule GameTest do
 
   describe "Game.is_board_full" do
     test "it returns true for a full board" do
-      assert Game.is_board_full(%{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "X", 8 => "O", 9 => "X" })
+      assert Game.is_board_full(@cats_game_board)
     end
 
     test "it returns false for a board that has at least one available position" do
-      assert !Game.is_board_full(%{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => nil, 7 => "X", 8 => "O", 9 => "X" })
+      assert !Game.is_board_full(Board.update(@cats_game_board, 6, nil))
     end
   end
 
   describe "Board.current_player" do
-    board = Board.empty
+    board = @empty_board
     board = Board.update(board, 5, "X") |> Board.update(8, "O") |> Board.update(2, "X")
     
     test "it returns 'O' when the turn count is odd" do
@@ -36,7 +39,7 @@ defmodule GameTest do
 
   describe "Game.check_win" do
     test "it will not identify nil series as a win" do
-      board = Board.empty
+      board = @empty_board
 
       assert !Game.check_win(board)
     end
@@ -52,7 +55,7 @@ defmodule GameTest do
       "SW to NE diagonal" => {3, 5, 7}
     }, fn {type, combo} ->
         test "it can determine a #{type} win" do
-          board = Board.empty
+          board = @empty_board
             |> Board.update(elem(unquote(Macro.escape(combo)), 0), "X")
             |> Board.update(elem(unquote(Macro.escape(combo)), 1), "X")
             |> Board.update(elem(unquote(Macro.escape(combo)), 2), "X")
@@ -64,16 +67,12 @@ defmodule GameTest do
   end
 
   test "it can check for a draw" do
-    board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
-
-    assert Game.check_draw(board)
+    assert Game.check_draw(@cats_game_board)
   end
 
   describe "Game.is_over" do
     test "it can tell when the game has ended in a cats game" do
-      board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
-
-      assert Game.is_over(board)
+      assert Game.is_over(@cats_game_board)
     end
 
     test "it can tell when the game has ended in a win" do
