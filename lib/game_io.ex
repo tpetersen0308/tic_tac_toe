@@ -6,10 +6,13 @@ defmodule GameIO do
       " #{value} "
     end)
      |> Enum.chunk_every(3)
-     |> Enum.map(fn row -> Enum.join(row, "|") end)
     
-    formatted_board = Enum.join(rows, "\n-----------\n")
+    formatted_board = Enum.join(formatted_rows(rows), "\n-----------\n")
 
     IO.puts(formatted_board)
+  end
+
+  def formatted_rows(rows) do
+    Enum.map(rows, fn row -> Enum.join(row, "|") end)
   end
 end
