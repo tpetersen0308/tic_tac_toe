@@ -81,4 +81,10 @@ defmodule GameTest do
       assert Game.is_over(board)
     end
   end
+
+  test "it can determine who the winner is" do
+    board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "O", 9 => "X"}
+
+    assert "X" == Game.winner(board)
+  end
 end
