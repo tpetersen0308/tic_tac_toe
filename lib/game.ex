@@ -8,7 +8,7 @@ defmodule Game do
     {3, 6, 9},
     {1, 5, 9},
     {3, 5, 7}
-    ]
+  ]
 
   def turn_count(board) do
     Enum.filter(Map.values(board), &(&1)) |> Enum.count
@@ -19,10 +19,10 @@ defmodule Game do
   end
 
   def check_win(board) do
-    @win_combos |> Enum.map(fn combo ->
+    @win_combos |> Enum.any?(fn combo ->
       {pos1, pos2, pos3} = {elem(combo, 0), elem(combo, 1), elem(combo, 2)}
       board[pos1] == board[pos2] and board[pos1] == board[pos3] and !!board[pos1]
     end) 
-      |> Enum.any?(&(&1))
+      # |> Enum.any?(&(&1))
   end
 end
