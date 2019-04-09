@@ -87,5 +87,9 @@ defmodule GameTest do
     test "can determine if a move is inside the range of board positions" do
       assert Game.is_valid_move(@empty_board, 9)
     end
+
+    test "can determine if a move is an integer" do
+      assert !Game.is_valid_move(@empty_board, "foo")
+    end
   end
 end
