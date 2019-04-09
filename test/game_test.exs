@@ -55,7 +55,21 @@ defmodule GameTest do
 
   test "it can check for a draw" do
     board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
-    
+
     assert Game.check_draw(board)
+  end
+
+  describe "Game.is_over" do
+    test "it can tell when the game has ended in a cats game" do
+      board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
+
+      assert Game.is_over(board)
+    end
+
+    test "it can tell when the game has ended in a win" do
+      board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "O", 9 => "X"}
+
+      assert Game.is_over(board)
+    end
   end
 end
