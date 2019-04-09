@@ -28,4 +28,8 @@ defmodule Game do
   def check_draw(board) do
     Board.is_full(board) and not check_win(board)
   end
+
+  def is_over(board) do
+    check_win(board) or check_draw(board)
+  end
 end
