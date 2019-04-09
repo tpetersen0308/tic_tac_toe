@@ -10,11 +10,11 @@ defmodule GameIO do
     IO.puts(formatted_board(formatted_rows(rows)))
   end
 
-  def formatted_rows(rows) do
+  def format_rows(rows) do
     Enum.map(rows, fn row -> Enum.join(row, "|") end)
   end
 
-  def formatted_board(formatted_rows) do
+  def format_board(formatted_rows) do
     Enum.join(formatted_rows, "\n-----------\n")
   end
 end
