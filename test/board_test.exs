@@ -11,4 +11,18 @@ defmodule BoardTest do
 
     assert %{ 1 => nil, 2 => nil, 3 => nil, 4 => nil, 5 => "X", 6 => nil, 7 => nil, 8 => nil, 9 => nil } == Board.update(board, 5, "X")
   end
+
+  describe "Board.is_full" do
+    board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
+    
+    test "it returns true for a full board" do
+      assert Board.is_full(unquote(Macro.escape(board)))
+    end
+
+    test "it returns false for a board that has at least one available position" do
+      board = Board.update(unquote(Macro.escape(board)), 6, nil)
+      
+      assert !Board.is_full(board)
+    end
+  end
 end

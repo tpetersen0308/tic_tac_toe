@@ -12,16 +12,6 @@ defmodule GameTest do
     assert 3 == Game.turn_count(board)
   end
 
-  describe "Game.is_board_full" do
-    test "it returns true for a full board" do
-      assert Game.is_board_full(@cats_game_board)
-    end
-
-    test "it returns false for a board that has at least one available position" do
-      assert !Game.is_board_full(Board.update(@cats_game_board, 6, nil))
-    end
-  end
-
   describe "Board.current_player" do
     board = @empty_board
     board = Board.update(board, 5, "X") |> Board.update(8, "O") |> Board.update(2, "X")
