@@ -14,4 +14,8 @@ defmodule Board do
   def turn_count(board) do
     Enum.filter(Map.values(board), &(&1)) |> Enum.count
   end
+
+  def is_available(board, position) do
+    !board[position]
+  end
 end
