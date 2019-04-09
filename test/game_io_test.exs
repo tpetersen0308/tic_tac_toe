@@ -24,4 +24,10 @@ defmodule GameIOTest do
 
     assert formatted_board == format_board(%{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => nil, 9 => "O"})
   end
+
+  test "it can format rows for printing" do 
+    formatted_rows = [" X | 2 | X ", " O | 5 | 6 ", " O | 8 | O "]
+
+    assert formatted_rows == format_rows(%{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => nil, 9 => "O"})
+  end
 end
