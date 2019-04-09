@@ -18,4 +18,10 @@ defmodule GameIOTest do
       end) == " X | 2 | X \n-----------\n O | 5 | 6 \n-----------\n O | 8 | O \n"
     end
   end
+
+  test "it can format the board for printing" do
+    formatted_board = " X | 2 | X \n-----------\n O | 5 | 6 \n-----------\n O | 8 | O "
+
+    assert formatted_board == format_board(%{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => nil, 9 => "O"})
+  end
 end
