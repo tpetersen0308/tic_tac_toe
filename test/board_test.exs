@@ -32,4 +32,10 @@ defmodule BoardTest do
 
     assert 3 == Board.turn_count(board)
   end
+
+  test "it can determine if a position is available" do
+    board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
+
+    assert Board.is_available(board, 6)
+  end
 end
