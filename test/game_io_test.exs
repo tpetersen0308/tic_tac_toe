@@ -32,4 +32,10 @@ defmodule GameIOTest do
 
     assert formatted_rows == format_rows(@incomplete_board)
   end
+
+  test "it can format the cells for each row" do
+    formatted_cells = [" X "," 2 "," X ", " O "," 5 "," 6 ", " O "," 8 "," O "]
+
+    assert formatted_cells == format_cells(@incomplete_board)
+  end
 end
