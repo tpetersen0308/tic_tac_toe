@@ -20,6 +20,9 @@ defmodule TicTacToe.MixProject do
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
-    [{:mix_test_watch, "~> 0.8", only: :dev}]
+    [
+      {:mix_test_watch, "~> 0.8", only: :dev},
+      {:mock, "~> 0.3.0", only: :test}
+    ]
   end
 end
