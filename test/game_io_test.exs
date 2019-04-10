@@ -4,6 +4,7 @@ defmodule GameIOTest do
 
   import ExUnit.CaptureIO
   import GameIO
+  import Mock
 
   @incomplete_board %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => nil, 9 => "O"}
 
@@ -37,5 +38,10 @@ defmodule GameIOTest do
     formatted_cells = [" X "," 2 "," X ", " O "," 5 "," 6 ", " O "," 8 "," O "]
 
     assert formatted_cells == format_cells(@incomplete_board)
+  end
+
+  test_with_mock "it can prompt the user for input", IO, [gets: fn(_) -> nil end] do
+    GameIO.get_input("X")
+    assert called IO.gets("It is X's turn. Please select from the available positions.")
   end
 end
