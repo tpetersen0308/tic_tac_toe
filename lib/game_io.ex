@@ -23,4 +23,8 @@ defmodule GameIO do
     formatted_rows = format_rows(board)
     Enum.join(formatted_rows, "\n-----------\n")
   end
+
+  def get_input(player) do
+    IO.gets("It is #{player}'s turn. Please select from the available positions.")
+  end
 end
