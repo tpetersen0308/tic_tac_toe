@@ -1,5 +1,6 @@
 defmodule GameManager do
   def turn(board) do
-    GameIO.get_input("X")
+    current_player = Game.current_player(board)
+    GameIO.get_input(current_player)
   end
 end
