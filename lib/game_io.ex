@@ -29,6 +29,10 @@ defmodule GameIO do
   end
 
   def parse_input(input) do
-    elem(Integer.parse(input), 0)
+    parsed = Integer.parse(input)
+    cond do
+      parsed == :error or elem(parsed, 1) !== "\n" -> :error
+      true -> elem(parsed, 0)
+    end
   end
 end
