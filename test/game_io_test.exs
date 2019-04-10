@@ -44,4 +44,10 @@ defmodule GameIOTest do
     GameIO.get_input("X")
     assert called IO.gets("It is X's turn. Please select from the available positions.")
   end
+
+  describe "GameIO.parse_input" do
+    test "it returns an integer when the user enters an integer" do
+      assert parse_input("1\n") == 1
+    end
+  end
 end
