@@ -10,7 +10,7 @@ defmodule GameManager do
 
   
 
-  def validate_input(board, move) when not is_integer(move) do
+  def validate_input(board, move) when not is_integer(move) or move not in 1..9 do
     IO.puts("Invalid input.")
   end
 end
