@@ -14,7 +14,7 @@ defmodule GameManagerTest do
           get_input: fn(current_player) -> 
             IO.puts("It is #{current_player}'s turn. Please select from the available positions.")
           end,
-          parse_input: fn(_) -> nil end,
+          parse_input: fn(_) -> 5 end,
           print_board: fn(_) -> nil end,
         ]
       }
@@ -50,10 +50,8 @@ defmodule GameManagerTest do
         GameIO,
         [],
         [
-          get_input: fn(_) -> 
-            nil
-          end,
-          parse_input: fn(_) -> nil end,
+          get_input: fn(_) -> nil end,
+          parse_input: fn(_) -> 5 end,
           print_board: fn(_) -> IO.puts(" X | 2 | X \n-----------\n O | 5 | 6 \n-----------\n O | 8 | O ") end,
         ]
       }
