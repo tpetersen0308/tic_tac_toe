@@ -15,6 +15,7 @@ defmodule GameManagerTest do
             IO.puts("It is #{current_player}'s turn. Please select from the available positions.")
           end,
           parse_input: fn(_) -> nil end,
+          print_board: fn(_) -> nil end,
         ]
       }
     ]) do
@@ -33,12 +34,34 @@ defmodule GameManagerTest do
         [
           get_input: fn(_) -> nil end,
           parse_input: fn(_) -> 5 end,
+          print_board: fn(_) -> nil end,
         ]
       },
     ]) do
       board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
       updated_board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => "X", 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
       assert updated_board == turn(board)
+    end
+  end
+
+  test "it can display the board" do
+    with_mocks([
+      {
+        GameIO,
+        [],
+        [
+          get_input: fn(_) -> 
+            nil
+          end,
+          parse_input: fn(_) -> nil end,
+          print_board: fn(_) -> IO.puts(" X | 2 | X \n-----------\n O | 5 | 6 \n-----------\n O | 8 | O ") end,
+        ]
+      }
+    ]) do
+      board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
+      assert capture_io(fn -> 
+        turn(board)
+      end) == " X | 2 | X \n-----------\n O | 5 | 6 \n-----------\n O | 8 | O \n"
     end
   end
 end 
