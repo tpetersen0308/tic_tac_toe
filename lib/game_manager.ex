@@ -10,7 +10,8 @@ defmodule GameManager do
   def get_move(board) do
     current_player = Game.current_player(board)
     user_input = GameIO.get_input(current_player)
-    user_move = GameIO.parse_input(user_input)
+    move = GameIO.parse_input(user_input)
+    move
   end
 
   defguard is_valid_move(board, target_cell, move) when not is_integer(move) or move not in 1..map_size(board) or target_cell != nil
@@ -18,7 +19,7 @@ defmodule GameManager do
   def validate_input(board, target_cell, move) when is_valid_move(board, target_cell, move) do
     IO.puts("You entered an invalid move.")
     user_move = get_move(board)
-    
+
     validate_input(board, board[user_move], user_move)
   end
 
