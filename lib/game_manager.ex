@@ -13,7 +13,7 @@ defmodule GameManager do
       IO.puts("#{Game.winner(board)} won!")
     end
 
-    continue = IO.gets("Enter <q> to quit, any other key to play again.")
+    continue = IO.gets("Enter <q> to quit, any other key to play again: ")
     if String.trim(continue) == "q", do: IO.puts("Goodbye"), else: start()
   end
 
