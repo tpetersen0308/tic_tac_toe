@@ -1,5 +1,8 @@
 defmodule GameManager do
-  def play(board, over \\ false ) when over do
+
+  def play(board, over \\ false)
+
+  def play(board, over) when over do
     board
   end
 
