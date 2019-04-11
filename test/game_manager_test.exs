@@ -64,4 +64,22 @@ defmodule GameManagerTest do
       end) == " X | 2 | X \n-----------\n O | 5 | 6 \n-----------\n O | 8 | O \n"
     end
   end
+
+  test "it can validate user input" do
+    with_mocks([
+     {
+      GameIO, 
+      [],
+      [
+        get_input: fn(_) -> nil end,
+        parse_input: fn(_) -> 5 end,
+      ]
+     } 
+    ]) do
+      board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
+      assert capture_io(fn -> 
+        validate_input(board, "foo")
+      end) == "Invalid input.\n"
+    end
+  end
 end 
