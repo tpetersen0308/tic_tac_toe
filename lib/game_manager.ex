@@ -1,5 +1,19 @@
 defmodule GameManager do
 
+  def start() do
+    board = Board.empty
+    
+    board = play(board)
+
+    GameIO.print_board(board)
+
+    if Game.check_draw(board) do
+      IO.puts("Cats game!")
+    else
+      IO.puts("#{Game.winner(board)} won!")
+    end
+  end
+
   def play(board, over \\ false)
 
   def play(board, over) when over do
