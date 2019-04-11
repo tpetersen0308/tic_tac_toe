@@ -5,7 +5,7 @@ defmodule GameManagerTest do
   import ExUnit.CaptureIO
   doctest GameManager
 
-  @invalid_input_message "You entered an invalid move.\n"
+  @invalid_input_message "You entered an invalid move. Please try again.\n"
 
   test "it can prompt the current player to make a move" do
     with_mocks([
