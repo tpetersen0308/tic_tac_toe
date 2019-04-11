@@ -65,20 +65,38 @@ defmodule GameManagerTest do
     end
   end
 
-  test "it can validate user input" do
+  test "it can validate user input that is not an integer" do
     with_mocks([
      {
       GameIO, 
       [],
       [
         get_input: fn(_) -> nil end,
-        parse_input: fn(_) -> 5 end,
+        # parse_input: fn(_) -> 5 end,
       ]
      } 
     ]) do
       board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
       assert capture_io(fn -> 
         validate_input(board, "foo")
+      end) == "Invalid input.\n"
+    end
+  end
+
+  test "it can validate input that is not in the board range" do
+    with_mocks([
+     {
+      GameIO, 
+      [],
+      [
+        get_input: fn(_) -> nil end,
+        # parse_input: fn(_) -> 5 end,
+      ]
+     } 
+    ]) do
+      board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
+      assert capture_io(fn -> 
+        validate_input(board, 10)
       end) == "Invalid input.\n"
     end
   end
