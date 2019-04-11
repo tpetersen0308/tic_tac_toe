@@ -72,7 +72,7 @@ defmodule GameManagerTest do
       [],
       [
         get_input: fn(_) -> nil end,
-        # parse_input: fn(_) -> 5 end,
+        parse_input: fn(_) -> 5 end,
       ]
      } 
     ]) do
@@ -92,7 +92,7 @@ defmodule GameManagerTest do
       [],
       [
         get_input: fn(_) -> nil end,
-        # parse_input: fn(_) -> 5 end,
+        parse_input: fn(_) -> 5 end,
       ]
      } 
     ]) do
@@ -112,7 +112,7 @@ defmodule GameManagerTest do
       [],
       [
         get_input: fn(_) -> nil end,
-        # parse_input: fn(_) -> 5 end,
+        parse_input: fn(_) -> 5 end,
       ]
      } 
     ]) do
@@ -122,6 +122,24 @@ defmodule GameManagerTest do
       assert capture_io(fn -> 
         validate_input(board, target_cell, move)
       end) == "Invalid input.\n"
+    end
+  end
+
+  test "it gets user input again when move is invalid" do
+    with_mocks([
+     {
+      GameIO, 
+      [],
+      [
+        get_input: fn(_) -> nil end,
+        parse_input: fn(_) -> 5 end,
+      ]
+     } 
+    ]) do
+      board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
+      move = 1
+      target_cell = board[move]
+      assert validate_input(board, target_cell, move) == 5
     end
   end
 end 
