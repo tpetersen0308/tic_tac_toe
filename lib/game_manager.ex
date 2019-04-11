@@ -8,7 +8,7 @@ defmodule GameManager do
     Board.update(board, user_move, current_player)
   end
 
-  def validate_input(board, target_cell, move) when not is_integer(move) or move not in 1..9 or target_cell != nil do
+  def validate_input(board, target_cell, move) when not is_integer(move) or move not in 1..map_size(board) or target_cell != nil do
     IO.puts("Invalid input.")
   end
 end
