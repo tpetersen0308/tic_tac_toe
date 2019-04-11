@@ -5,6 +5,8 @@ defmodule GameManagerTest do
   import ExUnit.CaptureIO
   doctest GameManager
 
+  @invalid_input_message "You entered an invalid move.\n"
+
   test "it can prompt the current player to make a move" do
     with_mocks([
       {
@@ -79,7 +81,7 @@ defmodule GameManagerTest do
       target_cell = board[move]
       assert capture_io(fn -> 
         validate_input(board, target_cell, move)
-      end) == "Invalid input.\n"
+      end) == @invalid_input_message
     end
   end
 
@@ -99,7 +101,7 @@ defmodule GameManagerTest do
       target_cell = board[move]
       assert capture_io(fn -> 
         validate_input(board, target_cell, move)
-      end) == "Invalid input.\n"
+      end) == @invalid_input_message
     end
   end
 
@@ -119,7 +121,7 @@ defmodule GameManagerTest do
       target_cell = board[move]
       assert capture_io(fn -> 
         validate_input(board, target_cell, move)
-      end) == "Invalid input.\n"
+      end) == @invalid_input_message
     end
   end
 
