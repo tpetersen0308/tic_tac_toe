@@ -2,7 +2,7 @@ defmodule GameIO do
   
   def print_board(board) do
     formatted_board = format_board(board)
-    IO.puts(formatted_board)
+    IO.puts("\n" <> formatted_board)
   end
 
   def format_cells(board) do

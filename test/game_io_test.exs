@@ -12,13 +12,13 @@ defmodule GameIOTest do
     test "it can print the board" do
       assert capture_io(fn -> 
         print_board(%{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"})
-      end) == " X | O | X \n-----------\n O | X | O \n-----------\n O | X | O \n"
+      end) == "\n X | O | X \n-----------\n O | X | O \n-----------\n O | X | O \n"
     end
 
     test "it can print the board with the correct numbers in unoccupied positions" do
       assert capture_io(fn -> 
         print_board(@incomplete_board)
-      end) == " X | 2 | X \n-----------\n O | 5 | 6 \n-----------\n O | 8 | O \n"
+      end) == "\n X | 2 | X \n-----------\n O | 5 | 6 \n-----------\n O | 8 | O \n"
     end
   end
 
