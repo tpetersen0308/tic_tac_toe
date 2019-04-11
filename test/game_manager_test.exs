@@ -77,8 +77,10 @@ defmodule GameManagerTest do
      } 
     ]) do
       board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
+      move = "foo"
+      target_cell = board[move]
       assert capture_io(fn -> 
-        validate_input(board, "foo")
+        validate_input(board, target_cell, move)
       end) == "Invalid input.\n"
     end
   end
@@ -95,8 +97,30 @@ defmodule GameManagerTest do
      } 
     ]) do
       board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
+      move = 10
+      target_cell = board[move]
       assert capture_io(fn -> 
-        validate_input(board, 10)
+        validate_input(board, target_cell, move)
+      end) == "Invalid input.\n"
+    end
+  end
+
+  test "it can validate input that corresponds to an occupied position" do
+    with_mocks([
+     {
+      GameIO, 
+      [],
+      [
+        get_input: fn(_) -> nil end,
+        # parse_input: fn(_) -> 5 end,
+      ]
+     } 
+    ]) do
+      board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
+      move = 1
+      target_cell = board[move]
+      assert capture_io(fn -> 
+        validate_input(board, target_cell, move)
       end) == "Invalid input.\n"
     end
   end
