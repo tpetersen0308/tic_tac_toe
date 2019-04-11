@@ -1,6 +1,6 @@
 defmodule GameManager do
 
-  def start() do
+  def start(continue \\ true) when continue do
     board = Board.empty
     
     board = play(board)
@@ -12,6 +12,9 @@ defmodule GameManager do
     else
       IO.puts("#{Game.winner(board)} won!")
     end
+
+    continue = IO.gets("Enter <q> to quit, any other key to play again.")
+    if String.trim(continue) == "q", do: IO.puts("Goodbye"), else: start()
   end
 
   def play(board, over \\ false)
