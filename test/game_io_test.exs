@@ -51,11 +51,11 @@ defmodule GameIOTest do
     end
 
     test "it returns :error when the user enters anything other than an integer" do
-      assert parse_input("foo") == :error
+      assert !parse_input("foo")
     end
 
     test "it returns :error when the user enters an integer followed by anything other than an integer" do
-      assert parse_input("1foo") == :error
+      assert !parse_input("1foo")
     end
   end
 end
