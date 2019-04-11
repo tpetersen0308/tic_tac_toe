@@ -42,7 +42,7 @@ defmodule GameIOTest do
 
   test_with_mock "it can prompt the user for input", IO, [gets: fn(_) -> nil end] do
     GameIO.get_input("X")
-    assert called IO.gets("It is X's turn. Please select from the available positions.")
+    assert called IO.gets("It is X's turn. Please enter an available position: ")
   end
 
   describe "GameIO.parse_input" do
