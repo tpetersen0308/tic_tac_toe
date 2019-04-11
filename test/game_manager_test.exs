@@ -73,6 +73,7 @@ defmodule GameManagerTest do
       [
         get_input: fn(_) -> nil end,
         parse_input: fn(_) -> 5 end,
+        print_board: fn(_) -> nil end,
       ]
      } 
     ]) do
@@ -93,6 +94,7 @@ defmodule GameManagerTest do
       [
         get_input: fn(_) -> nil end,
         parse_input: fn(_) -> 5 end,
+        print_board: fn(_) -> nil end,
       ]
      } 
     ]) do
@@ -113,6 +115,7 @@ defmodule GameManagerTest do
       [
         get_input: fn(_) -> nil end,
         parse_input: fn(_) -> 5 end,
+        print_board: fn(_) -> nil end,
       ]
      } 
     ]) do
@@ -133,6 +136,7 @@ defmodule GameManagerTest do
       [
         get_input: fn(_) -> nil end,
         parse_input: fn(_) -> 5 end,
+        print_board: fn(_) -> nil end,
       ]
      } 
     ]) do
