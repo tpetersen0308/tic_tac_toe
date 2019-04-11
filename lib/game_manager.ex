@@ -3,6 +3,11 @@ defmodule GameManager do
     board
   end
 
+  def play(board, _over) do
+    board = turn(board)
+    play(board, Game.is_over(board))
+  end
+
   def turn(board) do
     GameIO.print_board(board)
     user_move = get_move(board)
