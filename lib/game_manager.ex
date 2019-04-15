@@ -1,6 +1,8 @@
 defmodule GameManager do
 
-  def start(continue \\ true) when continue do
+  def start(continue \\ true)
+
+  def start(continue) when continue do
     board = Board.empty
     board = play(board)
 
@@ -8,7 +10,11 @@ defmodule GameManager do
     GameIO.print_result(board)
 
     continue = IO.gets("Enter <q> to quit, any other key to play again: ")
-    if String.trim(continue) == "q", do: IO.puts("Goodbye"), else: start()
+    start(continue !== "q\n")
+  end
+
+  def start(_continue) do
+    IO.puts("Goodbye")
   end
 
   def play(board, over \\ false)
