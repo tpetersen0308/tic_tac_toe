@@ -58,4 +58,11 @@ defmodule GameIOTest do
       assert !parse_input("1foo")
     end
   end
+
+  test "it can print an invalid input message" do
+    msg = "You entered an invalid move. Please try again."
+    assert capture_io(fn ->
+      GameIO.invalid_input(msg)
+    end) == msg <> "\n"
+  end
 end
