@@ -31,7 +31,7 @@ defmodule GameIO do
   def parse_input(input) do
     parsed = Integer.parse(input)
     cond do
-      parsed == :error or elem(parsed, 1) !== "\n" -> nil
+      parsed == :error or elem(parsed, 1) !== "\n" -> input 
       true -> elem(parsed, 0)
     end
   end
