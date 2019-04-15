@@ -9,17 +9,17 @@ defmodule GameTest do
   @cats_game_board %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
 
   describe "Game.current_player" do
-    board = @empty_board
-    board = update(board, 5, "X") |> update(8, "O") |> update(2, "X")
     
     test "it returns 'O' when the turn count is odd" do
-      assert "O" == current_player(unquote(Macro.escape(board)))
+      board = @empty_board
+      board = update(board, 5, "X") |> update(8, "O") |> update(2, "X")
+      assert "O" == current_player(board)
     end
-
-    board = update(board, 6, "O")
     
     test "it returns 'X' when the turn count is even" do
-      assert "X" == current_player(unquote(Macro.escape(board)))
+      board = @empty_board
+      board = update(board, 5, "X") |> update(8, "O") |> update(2, "X") |> update(6, "O")
+      assert "X" == current_player(board)
     end
   end
 
