@@ -28,16 +28,34 @@ defmodule GameIOTest do
     assert formatted_board == format_board(@incomplete_board)
   end
 
-  test "it can format rows for printing" do 
-    formatted_rows = [" X | 2 | X ", " O | 5 | 6 ", " O | 8 | O "]
+  describe "GameIO.format_rows" do
+    test "it can format rows for printing" do 
+      formatted_rows = [" X | 2 | X ", " O | 5 | 6 ", " O | 8 | O "]
 
-    assert formatted_rows == format_rows(@incomplete_board)
+      assert formatted_rows == format_rows(@incomplete_board)
+    end
+
+    test "it can format the rows for printing a board of arbitrary size" do
+      board = %{1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => nil, 8 => nil, 9 => "O", 10 => nil, 11 => "X", 12 => "O", 13 => "O", 14 => nil, 15 => "X", 16 => "O"}
+      formatted_rows = [" X | 2 | X | O ", " X | O | 7 | 8 ", " O |10 | X | O ", " O |14 | X | O "]
+
+      assert formatted_rows == format_rows(board)
+    end
   end
 
-  test "it can format the cells for each row" do
-    formatted_cells = [" X "," 2 "," X ", " O "," 5 "," 6 ", " O "," 8 "," O "]
+  describe "GameIO.format_cells" do
+    test "it can format the cells for each row" do
+      formatted_cells = [" X "," 2 "," X ", " O "," 5 "," 6 ", " O "," 8 "," O "]
 
-    assert formatted_cells == format_cells(@incomplete_board)
+      assert formatted_cells == format_cells(@incomplete_board)
+    end
+
+    test "it can handle double-digit positions" do
+      board = %{1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => nil, 8 => nil, 9 => "O", 10 => nil, 11 => "X", 12 => "O", 13 => "O", 14 => nil, 15 => "X", 16 => "O"}
+      formatted_cells = [" X ", " 2 ", " X ", " O ", " X ", " O ", " 7 ", " 8 ", " O ", "10 ", " X ", " O ", " O ", "14 ", " X ", " O "]
+
+      assert formatted_cells == format_cells(board)
+    end
   end
 
   test_with_mock "it can prompt the user for input", IO, [gets: fn(_) -> nil end] do

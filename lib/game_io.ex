@@ -8,14 +8,14 @@ defmodule GameIO do
   def format_cells(board) do
     Enum.map(board, fn {pos, token} -> 
       value = token || pos
-      " #{value} "
+      "#{value}" |> String.pad_leading(2) |> String.pad_trailing(3)
     end)
   end
 
   def format_rows(board) do
-    
+    row_size = trunc(:math.sqrt(map_size(board)))
     format_cells(board)
-     |> Enum.chunk_every(3)
+     |> Enum.chunk_every(row_size)
      |> Enum.map(fn row -> Enum.join(row, "|") end)
   end
 
