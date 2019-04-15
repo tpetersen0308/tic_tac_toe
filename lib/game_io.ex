@@ -21,7 +21,9 @@ defmodule GameIO do
 
   def format_board(board) do
     formatted_rows = format_rows(board)
-    Enum.join(formatted_rows, "\n-----------\n")
+    row_length = List.first(formatted_rows) |> String.length
+    spacer = String.duplicate("-", row_length)
+    Enum.join(formatted_rows, "\n#{spacer}\n")
   end
 
   def get_input(player) do

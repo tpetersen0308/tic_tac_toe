@@ -15,6 +15,15 @@ defmodule GameIOTest do
       end) == "\n X | O | X \n-----------\n O | X | O \n-----------\n O | X | O \n\n"
     end
 
+    test "it can print a board of an arbitrary size" do
+      board = %{1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => nil, 8 => nil, 9 => "O", 10 => nil, 11 => "X", 12 => "O", 13 => "O", 14 => nil, 15 => "X", 16 => "O"}
+      expected_output = "\n X | 2 | X | O \n---------------\n X | O | 7 | 8 \n---------------\n O |10 | X | O \n---------------\n O |14 | X | O \n\n"
+
+      assert capture_io(fn -> 
+        print_board(board)
+      end) == expected_output
+    end
+
     test "it can print the board with the correct numbers in unoccupied positions" do
       assert capture_io(fn -> 
         print_board(@incomplete_board)
