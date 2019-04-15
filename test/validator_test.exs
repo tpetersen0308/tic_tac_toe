@@ -18,4 +18,18 @@ defmodule ValidatorTest do
       assert !is_valid_move(@empty_board, "foo")
     end
   end
+
+  describe "Board.is_available" do
+    test "it can determine if a position is available" do
+      board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
+
+      assert is_available_position(board, 6)
+    end
+
+    test "it can determine if a position is unavailable" do
+      board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
+      
+      assert !is_available_position(board, 6)
+    end
+  end
 end
