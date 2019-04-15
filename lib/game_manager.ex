@@ -9,8 +9,8 @@ defmodule GameManager do
     GameIO.print_board(board)
     GameIO.print_result(board)
 
-    continue = IO.gets("Enter <q> to quit, any other key to play again: ")
-    start(continue !== "q\n")
+    continue = GameIO.continue
+    start(continue)
   end
 
   def start(_continue) do

@@ -43,4 +43,8 @@ defmodule GameIO do
   def print_result(board) do
     if Game.check_draw(board), do: IO.puts("Cat's Game!"), else: IO.puts("#{Game.winner(board)} won!")
   end
+
+  def continue() do
+    IO.gets("Enter <q> to quit, any other key to play again: ") !== "q\n"
+  end
 end
