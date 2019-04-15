@@ -44,7 +44,8 @@ defmodule GameIO do
     if Game.check_draw(board), do: IO.puts("Cat's Game!"), else: IO.puts("#{Game.winner(board)} won!")
   end
 
-  def continue() do
-    IO.gets("Enter <q> to quit, any other key to play again: ") !== "q\n"
+  def continue(quitChar) do
+    input = IO.gets("Enter <#{quitChar}> to quit, any other key to play again: ") 
+    String.trim(input) !== quitChar
   end
 end

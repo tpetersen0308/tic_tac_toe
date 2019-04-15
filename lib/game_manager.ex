@@ -9,7 +9,7 @@ defmodule GameManager do
     GameIO.print_board(board)
     GameIO.print_result(board)
 
-    continue = GameIO.continue
+    continue = GameIO.continue("q")
     start(continue)
   end
 

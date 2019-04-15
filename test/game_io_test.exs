@@ -80,9 +80,16 @@ defmodule GameIOTest do
     end) == "X won!\n"
   end
 
-  test "it can get user's decision regarding whether to continue play" do
+  test "it can get user's decision to quit" do
     with_mock IO, [gets: fn(_) -> "q\n" end] do
-      assert GameIO.continue() == false
+      assert !GameIO.continue("q")
+    end
+
+  end
+
+  test "it can get user's decision to continue" do
+    with_mock IO, [gets: fn(_) -> "a\n" end] do
+      assert GameIO.continue("q")
     end 
   end
 end
