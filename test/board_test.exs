@@ -22,14 +22,14 @@ defmodule BoardTest do
   end
 
   describe "Board.is_full" do
-    board = @full_board
-
     test "it returns true for a full board" do
-      assert is_full(unquote(Macro.escape(board)))
+      board = @full_board
+      assert is_full(board)
     end
 
     test "it returns false for a board that has at least one available position" do
-      board = update(unquote(Macro.escape(board)), 6, nil)
+      board = @full_board
+      board = Map.put(board, 6, nil)
       
       assert !is_full(board)
     end
