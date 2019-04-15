@@ -3,22 +3,41 @@ defmodule GameTest do
   doctest Game
 
   import Game
-  import Board
 
-  @empty_board empty()
-  @cats_game_board %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
+  @empty_board %{
+    1 => nil,
+    2 => nil,
+    3 => nil,
+    4 => nil,
+    5 => nil,
+    6 => nil,
+    7 => nil,
+    8 => nil,
+    9 => nil
+  }
+  
+  @cats_game_board %{ 
+    1 => "X", 
+    2 => "O", 
+    3 => "X", 
+    4 => "O", 
+    5 => "X", 
+    6 => "O", 
+    7 => "O", 
+    8 => "X", 
+    9 => "O"
+  }
 
   describe "Game.current_player" do
-    
     test "it returns 'O' when the turn count is odd" do
       board = @empty_board
-      board = update(board, 5, "X") |> update(8, "O") |> update(2, "X")
+      board = Map.put(board, 5, "X") |> Map.put(8, "O") |> Map.put(2, "X")
       assert "O" == current_player(board)
     end
     
     test "it returns 'X' when the turn count is even" do
       board = @empty_board
-      board = update(board, 5, "X") |> update(8, "O") |> update(2, "X") |> update(6, "O")
+      board = Map.put(board, 5, "X") |> Map.put(8, "O") |> Map.put(2, "X") |> Map.put(6, "O")
       assert "X" == current_player(board)
     end
   end
@@ -42,9 +61,9 @@ defmodule GameTest do
     }, fn {type, {pos1, pos2, pos3}} ->
         test "it can determine a #{type} win" do
           board = @empty_board
-            |> update(unquote(pos1), "X")
-            |> update(unquote(pos2), "X")
-            |> update(unquote(pos3), "X")
+            |> Map.put(unquote(pos1), "X")
+            |> Map.put(unquote(pos2), "X")
+            |> Map.put(unquote(pos3), "X")
 
           assert check_win(board)
         end 
