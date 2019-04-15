@@ -35,4 +35,8 @@ defmodule GameIO do
       true -> elem(parsed, 0)
     end
   end
+
+  def invalid_input(msg) do
+    IO.puts(msg)
+  end
 end
