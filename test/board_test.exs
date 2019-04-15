@@ -11,6 +11,10 @@ defmodule BoardTest do
     assert %{ 1 => nil, 2 => nil, 3 => nil, 4 => nil, 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil } == empty()
   end
 
+  test "it can create an empty board of an arbitrary size given a row length" do
+    assert %{ 1 => nil, 2 => nil, 3 => nil, 4 => nil, 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil, 10 => nil, 11 => nil, 12 => nil, 13 => nil, 14 => nil, 15 => nil, 16 => nil } == empty(4)
+  end
+
   test "it can update the board" do
     board = @empty_board
 
