@@ -33,8 +33,4 @@ defmodule Game do
   def winner(board) do
     if current_player(board) == @player1, do: @player2, else: @player1
   end
-
-  def is_valid_move(board, position) do
-    is_integer(position) and position in 1..Enum.count(board)
-  end
 end
