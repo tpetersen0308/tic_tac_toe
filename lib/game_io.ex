@@ -39,4 +39,8 @@ defmodule GameIO do
   def invalid_input(msg) do
     IO.puts(msg)
   end
+
+  def print_result(board) do
+    if Game.check_draw(board), do: IO.puts("Cat's Game!"), else: IO.puts("#{Game.winner(board)} won!")
+  end
 end

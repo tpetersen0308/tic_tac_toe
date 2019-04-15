@@ -65,4 +65,18 @@ defmodule GameIOTest do
       GameIO.invalid_input(msg)
     end) == msg <> "\n"
   end
+
+  test "it can print the game results for a draw" do
+    board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
+    assert capture_io(fn -> 
+      GameIO.print_result(board)
+    end) == "Cat's Game!\n"
+  end
+
+  test "it can print the game results for the winner" do
+    board = %{ 1 => "X", 2 => "X", 3 => "O", 4 => "O", 5 => "X", 6 => "X", 7 => "O", 8 => "X", 9 => "O"}
+    assert capture_io(fn -> 
+      GameIO.print_result(board)
+    end) == "X won!\n"
+  end
 end
