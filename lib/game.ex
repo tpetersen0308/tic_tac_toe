@@ -1,6 +1,6 @@
 defmodule Game do
-@player1 "X"
-@player2 "O"
+  @player1 "X"
+  @player2 "O"
   @win_combos [
     {1, 2, 3}, 
     {4, 5, 6},
