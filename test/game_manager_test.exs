@@ -5,61 +5,21 @@ defmodule GameManagerTest do
   import ExUnit.CaptureIO
   doctest GameManager
 
-  test "it can prompt the current player to make a move" do
+  test "it can execute a game loop" do
     with_mocks([
       {
         GameIO,
-        [],
+        [:passthrough],
         [
-          get_input: fn(current_player) -> 
-            IO.puts("It is #{current_player}'s turn. Please select from the available positions.")
-          end,
-          parse_input: fn(_) -> 5 end,
-          print_board: fn(_) -> nil end,
+          get_input: fn(_) -> "3\n" end,
         ]
       }
     ]) do
-      board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
-      assert capture_io(fn -> 
-        turn(board)
-      end) == "It is X's turn. Please select from the available positions.\n"
-    end
-  end
-
-  test "it can update the board with the player's move" do
-    with_mocks([
-      {
-        GameIO,
-        [],
-        [
-          get_input: fn(_) -> nil end,
-          parse_input: fn(_) -> 5 end,
-          print_board: fn(_) -> nil end,
-        ]
-      },
-    ]) do
-      board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
-      updated_board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => "X", 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
-      assert updated_board == turn(board)
-    end
-  end
-
-  test "it can display the board" do
-    with_mocks([
-      {
-        GameIO,
-        [],
-        [
-          get_input: fn(_) -> nil end,
-          parse_input: fn(_) -> 5 end,
-          print_board: fn(_) -> IO.puts(" X | 2 | X \n-----------\n O | 5 | 6 \n-----------\n O | 8 | O ") end,
-        ]
-      }
-    ]) do
-      board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
-      assert capture_io(fn -> 
-        turn(board)
-      end) == " X | 2 | X \n-----------\n O | 5 | 6 \n-----------\n O | 8 | O \n"
+      board = %{ 1 => "X", 2 => "X", 3 => nil, 4 => "O", 5 => "0", 6 => nil, 7 => nil, 8 => nil, 9 => nil}
+      updated_board = %{ 1 => "X", 2 => "X", 3 => "X", 4 => "O", 5 => "0", 6 => nil, 7 => nil, 8 => nil, 9 => nil}
+      capture_io(fn -> 
+        assert updated_board == play(board)
+      end)
     end
   end
 end 
