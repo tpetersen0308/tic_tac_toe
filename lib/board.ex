@@ -1,9 +1,7 @@
 defmodule Board do
   def empty(row_size \\ 3) do
-    # %{ 1 => nil, 2 => nil, 3 => nil, 4 => nil, 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil }
-    board = %{}
     board_size = row_size * row_size 
-    Enum.reduce(1..board_size, %{}, fn n, acc -> Map.put_new(acc, n, nil) end)
+    Enum.reduce(1..board_size, %{}, &(Map.put_new(&2, &1, nil)))
   end
 
   def update(board, position, token) do
