@@ -17,8 +17,7 @@ defmodule Game do
   end
 
   def check_win(board) do
-    @win_combos |> Enum.any?(fn combo ->
-      {pos1, pos2, pos3} = {elem(combo, 0), elem(combo, 1), elem(combo, 2)}
+    @win_combos |> Enum.any?(fn {pos1, pos2, pos3} ->
       board[pos1] == board[pos2] and board[pos1] == board[pos3] and !!board[pos1]
     end) 
   end

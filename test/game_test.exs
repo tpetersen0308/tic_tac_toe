@@ -39,12 +39,12 @@ defmodule GameTest do
       "right column" => {3, 6, 9},
       "NW to SE diagonal" => {1, 5, 9},
       "SW to NE diagonal" => {3, 5, 7}
-    }, fn {type, combo} ->
+    }, fn {type, {pos1, pos2, pos3}} ->
         test "it can determine a #{type} win" do
           board = @empty_board
-            |> update(elem(unquote(Macro.escape(combo)), 0), "X")
-            |> update(elem(unquote(Macro.escape(combo)), 1), "X")
-            |> update(elem(unquote(Macro.escape(combo)), 2), "X")
+            |> update(unquote(pos1), "X")
+            |> update(unquote(pos2), "X")
+            |> update(unquote(pos3), "X")
 
           assert check_win(board)
         end 
