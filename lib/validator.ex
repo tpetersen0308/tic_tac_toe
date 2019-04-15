@@ -1,12 +1,4 @@
 defmodule Validator do
-  def is_valid_move(board, position) do
-    is_integer(position) and position in 1..Enum.count(board)
-  end
-
-  def is_available_position(board, position) do
-    !board[position]
-  end
-
   defguard is_valid_move(board, target_cell, move) when not is_integer(move) or move not in 1..map_size(board) or target_cell != nil
 
   def validate_input(board, target_cell, move) when is_valid_move(board, target_cell, move) do
