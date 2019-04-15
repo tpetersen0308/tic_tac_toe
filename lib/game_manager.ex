@@ -31,7 +31,7 @@ defmodule GameManager do
   def turn(board) do
     GameIO.print_board(board)
     user_move = get_move(board)
-    valid_move = validate_input(board, board[user_move], user_move)
+    valid_move = Validator.validate_input(board, board[user_move], user_move)
 
     Board.update(board, valid_move, Game.current_player(board))
   end
@@ -40,20 +40,6 @@ defmodule GameManager do
     current_player = Game.current_player(board)
     user_input = GameIO.get_input(current_player)
     move = GameIO.parse_input(user_input)
-    move
-  end
-
-  defguard is_valid_move(board, target_cell, move) when not is_integer(move) or move not in 1..map_size(board) or target_cell != nil
-
-  def validate_input(board, target_cell, move) when is_valid_move(board, target_cell, move) do
-    GameIO.print_board(board)
-    IO.puts("You entered an invalid move. Please try again.")
-    user_move = get_move(board)
-
-    validate_input(board, board[user_move], user_move)
-  end
-
-  def validate_input(_board, _target_cell, move) do
     move
   end
 end
