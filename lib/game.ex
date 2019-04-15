@@ -1,4 +1,6 @@
 defmodule Game do
+@player1 "X"
+@player2 "O"
   @win_combos [
     {1, 2, 3}, 
     {4, 5, 6},
@@ -11,7 +13,7 @@ defmodule Game do
   ]
 
   def current_player(board) do
-    if Integer.mod(Board.turn_count(board), 2) == 0, do: "X", else: "O"
+    if Integer.mod(Board.turn_count(board), 2) == 0, do: @player1, else: @player2
   end
 
   def check_win(board) do
@@ -30,7 +32,7 @@ defmodule Game do
   end
 
   def winner(board) do
-    if current_player(board) == "X", do: "O", else: "X"
+    if current_player(board) == @player1, do: @player2, else: @player1
   end
 
   def is_valid_move(board, position) do
