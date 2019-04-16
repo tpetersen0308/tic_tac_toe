@@ -1,4 +1,6 @@
 defmodule Game do
+  @player1 "X"
+  @player2 "O"
   @win_combos [
     {1, 2, 3}, 
     {4, 5, 6},
@@ -11,12 +13,11 @@ defmodule Game do
   ]
 
   def current_player(board) do
-    if Integer.mod(Board.turn_count(board), 2) == 0, do: "X", else: "O"
+    if Integer.mod(Board.turn_count(board), 2) == 0, do: @player1, else: @player2
   end
 
   def check_win(board) do
-    @win_combos |> Enum.any?(fn combo ->
-      {pos1, pos2, pos3} = {elem(combo, 0), elem(combo, 1), elem(combo, 2)}
+    @win_combos |> Enum.any?(fn {pos1, pos2, pos3} ->
       board[pos1] == board[pos2] and board[pos1] == board[pos3] and !!board[pos1]
     end) 
   end
@@ -30,10 +31,6 @@ defmodule Game do
   end
 
   def winner(board) do
-    if current_player(board) == "X", do: "O", else: "X"
-  end
-
-  def is_valid_move(board, position) do
-    is_integer(position) and position in 1..Enum.count(board)
+    if current_player(board) == @player1, do: @player2, else: @player1
   end
 end
