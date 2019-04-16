@@ -56,6 +56,11 @@ defmodule GameManager do
     GameIO.parse_input(user_input)
   end
 
+  def get_players() do
+    user_selection = GameIO.get_player_choice |> GameIO.parse_input
+    {%{token: "X", human: user_selection == 1}, %{token: "O", human: user_selection == 2}}
+  end
+
   def current_player(board, players) do
     {player1, player2} = players
     if Integer.mod(Board.turn_count(board), 2) == 0, do: player1, else: player2

@@ -52,4 +52,10 @@ defmodule GameManagerTest do
       assert player2 == current_player(board, players)
     end
   end
+
+  test "it can get the players based on the user's player choice" do
+    with_mock IO, [gets: fn(_) -> "1\n" end] do
+      assert get_players() == {%{token: "X", human: true}, %{token: "O", human: false}}
+    end
+  end
 end 
