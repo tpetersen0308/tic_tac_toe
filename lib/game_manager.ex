@@ -36,6 +36,11 @@ defmodule GameManager do
     Board.update(board, valid_move, Game.current_player(board))
   end
 
+  def computer_turn(board) do
+    move = ComputerPlayer.get_random_move(board)
+    Board.update(board, move, Game.current_player(board))
+  end
+
   def get_move(board) do
     current_player = Game.current_player(board)
     user_input = GameIO.get_input(current_player)

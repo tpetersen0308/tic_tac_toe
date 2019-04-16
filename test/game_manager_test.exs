@@ -22,4 +22,12 @@ defmodule GameManagerTest do
       end)
     end
   end
+
+  test "it updates the board with the computer's move" do
+    board = %{1 => "X", 2 => "O", 3 => "O", 4 => "X", 5 => "X", 6 => "O", 7 => "O", 8 => nil, 9 => "X" }
+    expected_result = %{1 => "X", 2 => "O", 3 => "O", 4 => "X", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "X" }
+    actual_result = computer_turn(board)
+    
+    assert expected_result == actual_result
+  end
 end 
