@@ -26,11 +26,15 @@ defmodule GameManager do
 
   def play(board, players, _over) do
     player = current_player(board, players)
-    board = cond do 
+    board = turn(board, player)
+    play(board, players, Game.is_over(board))
+  end
+
+  def turn(board, player) do
+    cond do 
       player.human -> human_turn(board, player)
       true -> computer_turn(board, player)
     end
-    play(board, players, Game.is_over(board))
   end
 
   def human_turn(board, player) do
