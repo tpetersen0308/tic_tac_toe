@@ -41,4 +41,11 @@ defmodule BoardTest do
 
     assert 3 == turn_count(board)
   end
+
+  test "it can return the available positions" do
+    board = %{1 => "X", 2 => "O", 3 => nil, 4 => "X", 5 => nil, 6 => nil, 7 => "O", 8 => nil, 9 => "X" }
+    expected_result = [3, 5, 6, 8]
+
+    assert available_positions(board) == expected_result
+  end
 end

@@ -15,4 +15,8 @@ defmodule Board do
   def turn_count(board) do
     Enum.filter(Map.values(board), &(&1)) |> Enum.count
   end
+
+  def available_positions(board) do
+    Map.keys(:maps.filter fn _, v -> !v end, board)
+  end
 end
