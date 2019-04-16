@@ -133,4 +133,10 @@ defmodule GameIOTest do
       end 
     end
   end
+
+  test "it can get the user's player choice" do
+    capture_io([input: "1"], fn -> 
+      assert GameIO.get_player_choice == "1"
+    end)
+  end
 end
