@@ -4,7 +4,7 @@ defmodule ValidatorTest do
   import Validator
   import Mock
 
-  describe("Validator.validate_input") do
+  describe("Validator.validate_move") do
     test "it can validate user input and recurse to get valid input" do
       with_mocks([
         {
@@ -27,17 +27,17 @@ defmodule ValidatorTest do
         move = "foo"
         target_cell = board[move]
         
-        assert validate_input(board, target_cell, move) == 5
+        assert validate_move(board, target_cell, move) == 5
 
         move = "10"
         target_cell = board[move]
         
-        assert validate_input(board, target_cell, move) == 5
+        assert validate_move(board, target_cell, move) == 5
 
         move = "1"
         target_cell = board[move]
         
-        assert validate_input(board, target_cell, move) == 5
+        assert validate_move(board, target_cell, move) == 5
       end
     end
   end
