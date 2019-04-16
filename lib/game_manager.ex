@@ -4,7 +4,7 @@ defmodule GameManager do
 
   def start(continue) when continue do
     board = Board.empty
-    players = {%{token: "X", human: true}, %{token: "O", human: false}}
+    players = get_players()
     board = play(board, players)
 
     GameIO.print_board(board)
