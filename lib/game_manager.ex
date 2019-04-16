@@ -4,7 +4,8 @@ defmodule GameManager do
 
   def start(continue) when continue do
     board = Board.empty
-    board = play(board)
+    players = {%{token: "X", human: true}, %{token: "O", human: false}}
+    board = play(board, players)
 
     GameIO.print_board(board)
     GameIO.print_result(board)
@@ -17,28 +18,32 @@ defmodule GameManager do
     IO.puts("Goodbye")
   end
 
-  def play(board, over \\ false)
+  def play(board, players, over \\ false)
 
-  def play(board, over) when over do
+  def play(board, _players, over) when over do
     board
   end
 
-  def play(board, _over) do
-    board = turn(board)
-    play(board, Game.is_over(board))
+  def play(board, players, _over) do
+    player = current_player(board, players)
+    board = cond do 
+      player.human -> turn(board, player)
+      true -> computer_turn(board, player)
+    end
+    play(board, players, Game.is_over(board))
   end
 
-  def turn(board) do
+  def turn(board, player) do
     GameIO.print_board(board)
     user_move = get_move(board)
     valid_move = Validator.validate_input(board, board[user_move], user_move)
 
-    Board.update(board, valid_move, Game.current_player(board))
+    Board.update(board, valid_move, player.token)
   end
 
-  def computer_turn(board) do
+  def computer_turn(board, player) do
     move = ComputerPlayer.get_random_move(board)
-    Board.update(board, move, Game.current_player(board))
+    Board.update(board, move, player.token)
   end
 
   def get_move(board) do

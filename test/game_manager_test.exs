@@ -15,18 +15,20 @@ defmodule GameManagerTest do
         ]
       }
     ]) do
+      players = {%{token: "X", human: true}, %{token: "O", human: true}}
       board = %{ 1 => "X", 2 => "X", 3 => nil, 4 => "O", 5 => "0", 6 => nil, 7 => nil, 8 => nil, 9 => nil}
       updated_board = %{ 1 => "X", 2 => "X", 3 => "X", 4 => "O", 5 => "0", 6 => nil, 7 => nil, 8 => nil, 9 => nil}
       capture_io(fn -> 
-        assert updated_board == play(board)
+        assert updated_board == play(board, players)
       end)
     end
   end
 
   test "it updates the board with the computer's move" do
+    player = %{token: "X", human: true}
     board = %{1 => "X", 2 => "O", 3 => "O", 4 => "X", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => nil }
     expected_result = %{1 => "X", 2 => "O", 3 => "O", 4 => "X", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "X" }
-    actual_result = computer_turn(board)
+    actual_result = computer_turn(board, player)
     
     assert expected_result == actual_result
   end
