@@ -27,13 +27,13 @@ defmodule GameManager do
   def play(board, players, _over) do
     player = current_player(board, players)
     board = cond do 
-      player.human -> turn(board, player)
+      player.human -> human_turn(board, player)
       true -> computer_turn(board, player)
     end
     play(board, players, Game.is_over(board))
   end
 
-  def turn(board, player) do
+  def human_turn(board, player) do
     GameIO.print_board(board)
     user_move = get_move(board)
     valid_move = Validator.validate_input(board, board[user_move], user_move)
