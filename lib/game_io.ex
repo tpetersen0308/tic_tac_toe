@@ -31,7 +31,7 @@ defmodule GameIO do
   end
 
   def get_player_choice() do
-    IO.gets("Enter a number to select a player:\n  1 >> Player 1\n  2 >> Player 2")
+    IO.gets("Enter a number to select a player:\n  1 >> Player 1\n  2 >> Player 2\n  ")
   end
 
   def parse_input(input) do
