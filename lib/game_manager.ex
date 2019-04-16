@@ -46,4 +46,9 @@ defmodule GameManager do
     user_input = GameIO.get_input(current_player)
     GameIO.parse_input(user_input)
   end
+
+  def current_player(board, players) do
+    {player1, player2} = players
+    if Integer.mod(Board.turn_count(board), 2) == 0, do: player1, else: player2
+  end
 end
