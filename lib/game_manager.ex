@@ -1,12 +1,15 @@
 defmodule GameManager do
 
+  def setup() do
+    game_mode = Validator.validate_numeric_selection(game_mode_selection(), 2, "game mode")
+    {Board.empty, players(game_mode)}
+  end
+
   def start(continue \\ true)
 
   def start(continue) when continue do
-    board = Board.empty
     GameIO.welcome_message
-    game_mode = Validator.validate_numeric_selection(game_mode_selection(), 2, "game mode")
-    players = players(game_mode)
+    {board, players} = setup()
     board = play(board, players)
 
     GameIO.print_board(board)

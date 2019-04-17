@@ -24,6 +24,26 @@ defmodule GameManagerTest do
     end
   end
 
+  describe "GameManager.setup" do
+    test "it can set up a new human vs human game" do
+      capture_io([input: "1\n"], fn ->
+        assert setup() == {
+            %{ 1 => nil, 2 => nil, 3 => nil, 4 => nil, 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil },
+            {%{token: "X", human: true}, %{token: "O", human: true}}
+          }
+      end)
+    end
+
+    test "it can set up a new human vs computer game" do
+      capture_io([input: "2\n1\n"], fn ->
+        assert setup() == {
+            %{ 1 => nil, 2 => nil, 3 => nil, 4 => nil, 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil },
+            {%{token: "X", human: true}, %{token: "O", human: false}}
+          }
+      end)
+    end
+  end
+
   test "it updates the board with the computer's move" do
     player = %{token: "X", human: true}
     board = %{1 => "X", 2 => "O", 3 => "O", 4 => "X", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => nil }
