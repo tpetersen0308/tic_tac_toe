@@ -42,7 +42,7 @@ defmodule GameIO do
     end
   end
 
-  def invalid_input(msg) do
+  def invalid_move(msg) do
     IO.puts(msg)
   end
 
