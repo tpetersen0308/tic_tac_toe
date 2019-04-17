@@ -3,7 +3,7 @@ defmodule Validator do
 
   def validate_move(board, target_cell, move) when is_not_valid_move(board, target_cell, move) do
     GameIO.print_board(board)
-    GameIO.invalid_move("'#{move}' is an invalid move. Please try again.")
+    GameIO.invalid_input("'#{move}' is an invalid move. Please try again.")
     user_move = GameManager.get_move(board)
 
     validate_move(board, board[user_move], user_move)
@@ -14,7 +14,8 @@ defmodule Validator do
   end
 
   def validate_player_selection(player_selection) when player_selection not in [1,2] do
-    IO.puts("\n#{player_selection} is not a valid player choice. Please try again.")
+    # IO.puts("\n#{player_selection} is not a valid player choice. Please try again.")
+    GameIO.invalid_input("\n#{player_selection} is not a valid player choice. Please try again.")
     selection = GameManager.player_selection
     validate_player_selection(selection)
   end

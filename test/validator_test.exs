@@ -20,7 +20,7 @@ defmodule ValidatorTest do
           [],
           [
             print_board: fn(_) -> nil end,
-            invalid_move: fn(_) -> nil end,
+            invalid_input: fn(_) -> nil end,
           ]
         }
       ]) do
