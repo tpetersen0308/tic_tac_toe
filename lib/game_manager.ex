@@ -4,6 +4,7 @@ defmodule GameManager do
 
   def start(continue) when continue do
     board = Board.empty
+    GameIO.welcome_message
     game_mode = Validator.validate_numeric_selection(game_mode_selection(), 2, "game mode")
     players = players(game_mode)
     board = play(board, players)
