@@ -35,7 +35,7 @@ defmodule GameIO do
   end
 
   def get_game_mode_selection() do
-    IO.gets("Enter a number to select a game mode:\n  1 >> Human vs. Human\n  2 >> Human vs. Computer 2\n  ")
+    IO.gets("Enter a number to select a game mode:\n  1 >> Human vs. Human\n  2 >> Human vs. Computer\n  ")
   end
 
   def parse_input(input) do
