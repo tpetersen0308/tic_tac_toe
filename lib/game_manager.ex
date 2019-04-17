@@ -4,7 +4,7 @@ defmodule GameManager do
 
   def start(continue) when continue do
     board = Board.empty
-    game_mode = game_mode_selection()
+    game_mode = Validator.validate_selection(game_mode_selection(), "game mode")
     players = players(game_mode)
     board = play(board, players)
 
@@ -69,7 +69,7 @@ defmodule GameManager do
     cond do
       game_mode == 1 -> {%{token: "X", human: true}, %{token: "O", human: true}}
       true -> 
-        user_selection = Validator.validate_player_selection(player_selection())
+        user_selection = Validator.validate_selection(player_selection(), "player")
         {%{token: "X", human: user_selection == 1}, %{token: "O", human: user_selection == 2}}
     end
   end
