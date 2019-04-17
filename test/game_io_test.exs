@@ -139,4 +139,10 @@ defmodule GameIOTest do
       assert GameIO.get_player_selection == "1"
     end)
   end
+
+  test "it can get the user's game mode choice" do
+    capture_io([input: "1"], fn -> 
+      assert GameIO.get_game_mode_selection == "1"
+    end)
+  end
 end
