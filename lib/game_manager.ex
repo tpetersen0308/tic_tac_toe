@@ -56,8 +56,12 @@ defmodule GameManager do
     GameIO.parse_input(user_input)
   end
 
+  def player_selection() do
+    GameIO.get_player_choice |> GameIO.parse_input
+  end
+
   def get_players() do
-    user_selection = GameIO.get_player_choice |> GameIO.parse_input
+    user_selection = player_selection()
     {%{token: "X", human: user_selection == 1}, %{token: "O", human: user_selection == 2}}
   end
 
