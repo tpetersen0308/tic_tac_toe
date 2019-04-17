@@ -4,7 +4,7 @@ defmodule GameManager do
 
   def start(continue) when continue do
     board = Board.empty
-    game_mode = GameIO.get_game_mode_selection() |> GameIO.parse_input
+    game_mode = game_mode_selection()
     players = players(game_mode)
     board = play(board, players)
 
@@ -59,6 +59,10 @@ defmodule GameManager do
 
   def player_selection() do
     GameIO.get_player_selection |> GameIO.parse_input
+  end
+
+  def game_mode_selection() do
+    GameIO.get_game_mode_selection() |> GameIO.parse_input
   end
 
   def players(game_mode) do
