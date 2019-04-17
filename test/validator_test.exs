@@ -43,7 +43,7 @@ defmodule ValidatorTest do
     end
   end
 
-  describe("Validator.validate_player_selection") do
+  describe("Validator.validate_selection") do
     test "it can validate user input and recurse to get valid player selection" do
       with_mocks([
         {
@@ -51,11 +51,13 @@ defmodule ValidatorTest do
           [],
           [
             player_selection: fn -> 1 end,
+            game_mode_selection: fn -> 2 end,
           ]
         },
       ]) do
       capture_io(fn -> 
-        assert validate_player_selection(5) == 1
+        assert validate_selection(5, "player") == 1
+        assert validate_selection(5, "game mode") == 2
       end)
       end
     end

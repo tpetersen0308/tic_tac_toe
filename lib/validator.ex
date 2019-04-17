@@ -13,13 +13,18 @@ defmodule Validator do
     move
   end
 
-  def validate_player_selection(player_selection) when player_selection not in [1,2] do
-    GameIO.invalid_input("\n#{player_selection} is not a valid player choice. Please try again.")
-    selection = GameManager.player_selection
-    validate_player_selection(selection)
+  def validate_selection(player_selection, mode) when player_selection not in [1,2] do
+    GameIO.invalid_input("\n#{player_selection} is not a valid #{mode} choice. Please try again.")
+    
+    selection = case mode do
+      "player" -> GameManager.player_selection
+      "game mode" -> GameManager.game_mode_selection
+    end
+
+    validate_selection(selection, mode)
   end
 
-  def validate_player_selection(player_selection) do
+  def validate_selection(player_selection, mode) do
     player_selection
   end
 end
