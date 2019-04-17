@@ -57,7 +57,7 @@ defmodule GameManager do
   end
 
   def player_selection() do
-    GameIO.get_player_choice |> GameIO.parse_input
+    GameIO.get_player_selection |> GameIO.parse_input
   end
 
   def get_players() do

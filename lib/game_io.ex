@@ -30,7 +30,7 @@ defmodule GameIO do
     IO.gets("It is #{player}'s turn. Please enter an available position: ")
   end
 
-  def get_player_choice() do
+  def get_player_selection() do
     IO.gets("Enter a number to select a player:\n  1 >> Player 1\n  2 >> Player 2\n  ")
   end
 
