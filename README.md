@@ -9,9 +9,9 @@ Fork the repository and clone with `git clone git@github.com:<username>/tic_tac_
 
 Install dependencies with `mix deps.get`
 
-Compile the project with `iex -S mix`
+Compile the project with `mix compile`
 
-Start the game with `GameManager.start`
+Start the game with `mix tic_tac_toe`
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
