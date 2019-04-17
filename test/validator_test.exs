@@ -3,9 +3,10 @@ defmodule ValidatorTest do
   doctest Validator
   import Validator
   import Mock
+  import ExUnit.CaptureIO
 
   describe("Validator.validate_move") do
-    test "it can validate user input and recurse to get valid input" do
+    test "it can validate user input and recurse to get valid move selection" do
       with_mocks([
         {
           GameManager, 
@@ -38,6 +39,24 @@ defmodule ValidatorTest do
         target_cell = board[move]
         
         assert validate_move(board, target_cell, move) == 5
+      end
+    end
+  end
+
+  describe("Validator.validate_player_selection") do
+    test "it can validate user input and recurse to get valid player selection" do
+      with_mocks([
+        {
+          GameManager, 
+          [],
+          [
+            player_selection: fn -> 1 end,
+          ]
+        },
+      ]) do
+      capture_io(fn -> 
+        assert validate_player_selection(5) == 1
+      end)
       end
     end
   end

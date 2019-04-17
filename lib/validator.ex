@@ -12,4 +12,13 @@ defmodule Validator do
   def validate_move(_board, _target_cell, move) do
     move
   end
+
+  def validate_player_selection(player_selection) when player_selection not in [1,2] do
+    selection = GameManager.player_selection
+    validate_player_selection(selection)
+  end
+
+  def validate_player_selection(player_selection) do
+    player_selection
+  end
 end
