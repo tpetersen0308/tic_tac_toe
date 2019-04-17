@@ -39,7 +39,7 @@ defmodule GameManager do
 
   def human_turn(board, player) do
     GameIO.print_board(board)
-    user_move = get_move(board)
+    user_move = move(board)
     valid_move = Validator.validate_move(board, board[user_move], user_move)
 
     Board.update(board, valid_move, player.token)
@@ -50,7 +50,7 @@ defmodule GameManager do
     Board.update(board, move, player.token)
   end
 
-  def get_move(board) do
+  def move(board) do
     current_player = Game.current_player(board)
     user_input = GameIO.get_move(current_player)
     GameIO.parse_input(user_input)

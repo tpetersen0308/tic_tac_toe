@@ -12,7 +12,7 @@ defmodule ValidatorTest do
           GameManager, 
           [],
           [
-            get_move: fn(_) -> 5 end,
+            move: fn(_) -> 5 end,
           ]
         },
         {

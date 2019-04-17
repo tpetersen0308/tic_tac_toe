@@ -4,7 +4,7 @@ defmodule Validator do
   def validate_move(board, target_cell, move) when is_not_valid_move(board, target_cell, move) do
     GameIO.print_board(board)
     GameIO.invalid_input("'#{move}' is an invalid move. Please try again.")
-    user_move = GameManager.get_move(board)
+    user_move = GameManager.move(board)
 
     validate_move(board, board[user_move], user_move)
   end
