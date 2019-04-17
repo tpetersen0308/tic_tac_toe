@@ -56,8 +56,8 @@ defmodule ValidatorTest do
         },
       ]) do
       capture_io(fn -> 
-        assert validate_selection(5, "player") == 1
-        assert validate_selection(5, "game mode") == 2
+        assert validate_numeric_selection(5, 2, "player") == 1
+        assert validate_numeric_selection(5, 2, "game mode") == 2
       end)
       end
     end
