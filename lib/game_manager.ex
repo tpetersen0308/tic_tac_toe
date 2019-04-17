@@ -4,7 +4,8 @@ defmodule GameManager do
 
   def start(continue) when continue do
     board = Board.empty
-    players = players()
+    game_mode = GameIO.get_game_mode_selection() |> GameIO.parse_input
+    players = players(game_mode)
     board = play(board, players)
 
     GameIO.print_board(board)
@@ -60,9 +61,13 @@ defmodule GameManager do
     GameIO.get_player_selection |> GameIO.parse_input
   end
 
-  def players() do
-    user_selection = Validator.validate_player_selection(player_selection())
-    {%{token: "X", human: user_selection == 1}, %{token: "O", human: user_selection == 2}}
+  def players(game_mode) do
+    cond do
+      game_mode == 1 -> {%{token: "X", human: true}, %{token: "O", human: true}}
+      true -> 
+        user_selection = Validator.validate_player_selection(player_selection())
+        {%{token: "X", human: user_selection == 1}, %{token: "O", human: user_selection == 2}}
+    end
   end
 
   def current_player(board, players) do

@@ -55,7 +55,8 @@ defmodule GameManagerTest do
 
   test "it can get the players based on the user's player choice" do
     with_mock IO, [gets: fn(_) -> "1\n" end] do
-      assert players() == {%{token: "X", human: true}, %{token: "O", human: false}}
+    game_mode = 2
+      assert players(game_mode) == {%{token: "X", human: true}, %{token: "O", human: false}}
     end
   end
 end 
