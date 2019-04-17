@@ -52,7 +52,7 @@ defmodule GameManager do
 
   def get_move(board) do
     current_player = Game.current_player(board)
-    user_input = GameIO.get_input(current_player)
+    user_input = GameIO.get_move(current_player)
     GameIO.parse_input(user_input)
   end
 

@@ -11,7 +11,7 @@ defmodule GameManagerTest do
         GameIO,
         [:passthrough],
         [
-          get_input: fn(_) -> "3\n" end,
+          get_move: fn(_) -> "3\n" end,
         ]
       }
     ]) do

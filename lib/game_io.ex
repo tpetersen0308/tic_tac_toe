@@ -26,7 +26,7 @@ defmodule GameIO do
     Enum.join(formatted_rows, "\n#{spacer}\n")
   end
 
-  def get_input(player) do
+  def get_move(player) do
     IO.gets("It is #{player}'s turn. Please enter an available position: ")
   end
 
