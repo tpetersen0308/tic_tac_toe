@@ -61,7 +61,7 @@ defmodule GameManager do
   end
 
   def get_players() do
-    user_selection = player_selection()
+    user_selection = Validator.validate_player_selection(player_selection())
     {%{token: "X", human: user_selection == 1}, %{token: "O", human: user_selection == 2}}
   end
 
