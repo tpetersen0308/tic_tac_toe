@@ -1,8 +1,17 @@
 defmodule GameManager do
 
-  def setup() do
-    game_mode = Validator.validate_numeric_selection(game_mode_selection(), 2, "game mode")
+  def setup(game_mode \\ nil, is_valid_game_mode \\ false)
+
+  def setup(game_mode, is_valid_game_mode) when is_valid_game_mode do
     {Board.empty, players(game_mode)}
+  end
+
+  def setup(_game_mode, _is_valid_game_mode) do
+    {game_mode, is_valid} = Validator.validate_numeric_selection(game_mode_selection(), 1..2)
+    
+    if not is_valid, do: GameIO.invalid_selection(game_mode, "game mode")
+
+    setup(game_mode, is_valid)
   end
 
   def start(continue \\ true)
@@ -84,12 +93,19 @@ defmodule GameManager do
     GameIO.get_game_mode_selection() |> GameIO.parse_input
   end
 
-  def players(game_mode) do
+  def players(game_mode, selection \\ nil, is_valid_player \\ false)
+
+  def players(_game_mode, selection, is_valid_player) when is_valid_player do
+    {%{token: "X", human: selection == 1}, %{token: "O", human: selection == 2}}
+  end
+
+  def players(game_mode, _selection, _is_valid_player) do
     cond do
       game_mode == 1 -> {%{token: "X", human: true}, %{token: "O", human: true}}
       true -> 
-        user_selection = Validator.validate_numeric_selection(player_selection(), 2, "player")
-        {%{token: "X", human: user_selection == 1}, %{token: "O", human: user_selection == 2}}
+        {selection, is_valid} = Validator.validate_numeric_selection(player_selection(), 1..2)
+        if not is_valid, do: GameIO.invalid_selection(selection, "player")
+        players(game_mode, selection, is_valid)
     end
   end
 
