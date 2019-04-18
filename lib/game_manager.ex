@@ -1,22 +1,24 @@
 defmodule GameManager do
 
-  def start(continue \\ true)
+  def start(deps, continue \\ true)
 
-  def start(true) do
-    GameIO.welcome_message
+  def start(deps, true) do
+    { user_interface, game_status } = { deps.user_interface, deps.game_status} 
+
+    user_interface.welcome_message
     {board, players} = setup()
     board = play(board, players)
 
-    GameIO.print_board(board)
+    user_interface.print_board(board)
 
-    winner = if Game.check_win(board), do: winner(board, players).token
-    GameIO.print_result(winner) 
+    winner = if game_status.check_win(board), do: winner(board, players).token
+    user_interface.print_result(winner) 
 
-    continue = GameIO.continue("q")
-    start(continue)
+    continue = user_interface.continue("q")
+    start(deps, continue)
   end
 
-  def start(_continue) do
+  def start(_deps, _continue) do
     IO.puts("Goodbye")
   end
 
