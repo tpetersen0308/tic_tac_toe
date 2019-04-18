@@ -14,19 +14,4 @@ defmodule Validator do
       true -> {selection, true}
     end
   end
-
-  # def validate_numeric_selection(selection, number_of_options, subject) when selection not in 1..number_of_options do
-  #   GameIO.invalid_selection(selection, subject)
-    
-  #   selection = case subject do
-  #     "player" -> GameManager.player_selection
-  #     "game mode" -> GameManager.game_mode_selection
-  #   end
-
-  #   validate_numeric_selection(selection, number_of_options, subject)
-  # end
-
-  # def validate_numeric_selection(selection, _number_of_options, _subject) do
-  #   selection
-  # end
 end
