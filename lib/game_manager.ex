@@ -70,18 +70,18 @@ defmodule GameManager do
   end
 
   def turn(deps, board, player) do
-    cond do 
+    move = cond do 
       player.human -> 
         human_turn_deps = %{
           user_interface: deps.user_interface, 
-          board_manager: deps.board_manager, 
           validator: deps.validator
         }
 
         deps.user_interface.print_board(board)
         human_turn(human_turn_deps, board, player)
-      true -> computer_turn(%{board_manager: deps.board_manager, computer: deps.computer}, board, player)
+      true -> computer_turn(%{computer: deps.computer}, board)
     end
+    deps.board_manager.update(board, move, player.token)
   end
 
   def human_turn(deps, board, player, move_is_valid \\ false)
@@ -91,7 +91,7 @@ defmodule GameManager do
   end
 
   def human_turn(deps, board, player, _move_is_valid) do
-    {user_interface, board_manager, validator} = {deps.user_interface, deps.board_manager, deps.validator}
+    {user_interface, validator} = {deps.user_interface, deps.validator}
 
     user_move = user_interface.get_move(player.token)
     {user_move, is_valid, msg} = validator.validate_move(board, user_move)
@@ -102,15 +102,14 @@ defmodule GameManager do
         user_interface.invalid_move(user_move, msg)
         board
       true -> 
-        board_manager.update(board, user_move, player.token)
+        user_move
       end
     
     human_turn(deps, board, player, is_valid)
   end
 
-  def computer_turn(deps, board, player) do
-    move = deps.computer.get_random_move(board)
-    deps.board_manager.update(board, move, player.token)
+  def computer_turn(deps, board) do
+    deps.computer.get_random_move(board)
   end
   
   def players(deps, game_mode, selection \\ nil, is_valid_player \\ false)
