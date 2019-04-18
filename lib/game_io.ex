@@ -50,6 +50,14 @@ defmodule GameIO do
     end
   end
 
+  def player_selection() do
+    get_player_selection |> parse_input
+  end
+
+  def game_mode_selection() do
+    get_game_mode_selection() |> parse_input
+  end
+
   def invalid_move(move, msg) do
     IO.puts("'#{move}' is not #{msg}. Please try again.")
   end
