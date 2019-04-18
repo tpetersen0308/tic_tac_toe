@@ -1,5 +1,5 @@
 defmodule ComputerPlayer do
   def get_random_move(board) do
-      Enum.random(Board.available_positions(board))
+      board |> Board.available_positions |> Enum.random
   end
 end
