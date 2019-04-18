@@ -32,7 +32,12 @@ defmodule GameManager do
   def setup(deps, game_mode \\ nil, is_valid_game_mode \\ false)
 
   def setup(deps, game_mode, true) do
-    {deps.board_manager.empty, players(%{user_interface: deps.user_interface, validator: deps.validator}, game_mode)}
+    players_deps = %{
+      user_interface: deps.user_interface, 
+      validator: deps.validator
+    }
+    
+    {deps.board_manager.empty, players(players_deps, game_mode)}
   end
 
   def setup(deps, _game_mode, _is_valid_game_mode) do
@@ -52,16 +57,29 @@ defmodule GameManager do
   end
 
   def play(deps, board, players, _over) do
+    turn_deps = %{
+      user_interface: deps.user_interface,
+      board_manager: deps.board_manager,
+      validator: deps.validator,
+      computer: deps.computer
+    }
+
     player = current_player(%{board_manager: deps.board_manager}, board, players)
-    board = turn(%{user_interface: deps.user_interface, board_manager: deps.board_manager, validator: deps.validator, computer: deps.computer}, board, player)
+    board = turn(turn_deps, board, player)
     play(deps, board, players, deps.game_status.is_over(board))
   end
 
   def turn(deps, board, player) do
     cond do 
       player.human -> 
+        human_turn_deps = %{
+          user_interface: deps.user_interface, 
+          board_manager: deps.board_manager, 
+          validator: deps.validator
+        }
+
         deps.user_interface.print_board(board)
-        human_turn(%{user_interface: deps.user_interface, board_manager: deps.board_manager, validator: deps.validator}, board, player)
+        human_turn(human_turn_deps, board, player)
       true -> computer_turn(%{board_manager: deps.board_manager, computer: deps.computer}, board, player)
     end
   end
