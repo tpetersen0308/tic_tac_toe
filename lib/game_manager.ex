@@ -81,7 +81,6 @@ defmodule GameManager do
   end
 
   def move(board, current_player) do
-    # current_player = Game.current_player(board)
     user_input = GameIO.get_move(current_player.token)
     GameIO.parse_input(user_input)
   end
