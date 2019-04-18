@@ -32,6 +32,7 @@ defmodule GameIO do
 
   def get_move(player) do
     IO.gets("It is #{player}'s turn. Please enter an available position: ")
+      |> parse_input
   end
 
   def get_player_selection() do
