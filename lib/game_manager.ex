@@ -18,7 +18,7 @@ defmodule GameManager do
 
     user_interface.print_board(board)
 
-    winner = if game_status.check_win(board), do: winner(board, players).token
+    winner = if game_status.check_win(board), do: winner(%{board_manager: deps.board_manager}, board, players).token
     user_interface.print_result(winner) 
 
     continue = user_interface.continue("q")
@@ -52,7 +52,7 @@ defmodule GameManager do
   end
 
   def play(deps, board, players, _over) do
-    player = current_player(board, players)
+    player = current_player(%{board_manager: deps.board_manager}, board, players)
     board = turn(%{user_interface: deps.user_interface, board_manager: deps.board_manager, validator: deps.validator, computer: deps.computer}, board, player)
     play(deps, board, players, deps.game_status.is_over(board))
   end
@@ -114,13 +114,13 @@ defmodule GameManager do
     end
   end
 
-  def current_player(board, players) do
+  def current_player(deps, board, players) do
     {player1, player2} = players
-    if Integer.mod(Board.turn_count(board), 2) == 0, do: player1, else: player2
+    if Integer.mod(deps.board_manager.turn_count(board), 2) == 0, do: player1, else: player2
   end
 
-  def winner(board, players) do
+  def winner(deps, board, players) do
     {player1, player2} = players
-    if current_player(board, players) == player1, do: player2, else: player1
+    if current_player(deps, board, players) == player1, do: player2, else: player1
   end
 end
