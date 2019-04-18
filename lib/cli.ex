@@ -4,6 +4,7 @@ defmodule CLI do
     game_status: Game,
     board_manager: Board,
     validator: Validator,
+    computer: ComputerPlayer,
   }
 
   def main(_args \\ []) do

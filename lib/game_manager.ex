@@ -4,6 +4,7 @@ defmodule GameManager do
 
   def start(deps, true) do
     { user_interface, game_status } = { deps.user_interface, deps.game_status} 
+    
     setup_deps = %{
       user_interface: deps.user_interface,
       board_manager: deps.board_manager,
@@ -13,7 +14,7 @@ defmodule GameManager do
     user_interface.welcome_message
 
     {board, players} = setup(setup_deps)
-    board = play(%{game_status: deps.game_status, user_interface: deps.user_interface, board_manager: deps.board_manager, validator: deps.validator}, board, players)
+    board = play(deps, board, players)
 
     user_interface.print_board(board)
 
@@ -52,7 +53,7 @@ defmodule GameManager do
 
   def play(deps, board, players, _over) do
     player = current_player(board, players)
-    board = turn(%{user_interface: deps.user_interface, board_manager: deps.board_manager, validator: deps.validator}, board, player)
+    board = turn(%{user_interface: deps.user_interface, board_manager: deps.board_manager, validator: deps.validator, computer: deps.computer}, board, player)
     play(deps, board, players, deps.game_status.is_over(board))
   end
 
@@ -60,8 +61,8 @@ defmodule GameManager do
     cond do 
       player.human -> 
         deps.user_interface.print_board(board)
-        human_turn(deps, board, player)
-      true -> computer_turn(board, player)
+        human_turn(%{user_interface: deps.user_interface, board_manager: deps.board_manager, validator: deps.validator}, board, player)
+      true -> computer_turn(%{board_manager: deps.board_manager, computer: deps.computer}, board, player)
     end
   end
 
@@ -89,9 +90,9 @@ defmodule GameManager do
     human_turn(deps, board, player, is_valid)
   end
 
-  def computer_turn(board, player) do
-    move = ComputerPlayer.get_random_move(board)
-    Board.update(board, move, player.token)
+  def computer_turn(deps, board, player) do
+    move = deps.computer.get_random_move(board)
+    deps.board_manager.update(board, move, player.token)
   end
   
   def players(game_mode, selection \\ nil, is_valid_player \\ false)
