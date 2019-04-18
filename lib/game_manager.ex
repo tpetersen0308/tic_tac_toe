@@ -1,18 +1,5 @@
 defmodule GameManager do
 
-  def setup(game_mode \\ nil, is_valid_game_mode \\ false)
-
-  def setup(game_mode, is_valid_game_mode) when is_valid_game_mode do
-    {Board.empty, players(game_mode)}
-  end
-
-  def setup(_game_mode, _is_valid_game_mode) do
-    {game_mode, is_valid} = Validator.validate_numeric_selection(game_mode_selection(), 1..2)
-    
-    if not is_valid, do: GameIO.invalid_selection(game_mode, "game mode")
-
-    setup(game_mode, is_valid)
-  end
 
   def start(continue \\ true)
 
@@ -32,6 +19,40 @@ defmodule GameManager do
     IO.puts("Goodbye")
   end
 
+  def setup(game_mode \\ nil, is_valid_game_mode \\ false)
+
+  def setup(game_mode, is_valid_game_mode) when is_valid_game_mode do
+    {Board.empty, players(game_mode)}
+  end
+
+  def setup(_game_mode, _is_valid_game_mode) do
+    {game_mode, is_valid} = Validator.validate_numeric_selection(game_mode_selection(), 1..2)
+    
+    if not is_valid, do: GameIO.invalid_selection(game_mode, "game mode")
+
+    setup(game_mode, is_valid)
+  end
+
+  def players(game_mode, selection \\ nil, is_valid_player \\ false)
+
+  def players(_game_mode, selection, is_valid_player) when is_valid_player do
+    {%{token: "X", human: selection == 1}, %{token: "O", human: selection == 2}}
+  end
+
+  def players(game_mode, _selection, _is_valid_player) do
+    cond do
+      game_mode == 1 -> {%{token: "X", human: true}, %{token: "O", human: true}}
+      true -> 
+        {selection, is_valid} = Validator.validate_numeric_selection(player_selection(), 1..2)
+        if not is_valid, do: GameIO.invalid_selection(selection, "player")
+        players(game_mode, selection, is_valid)
+    end
+  end
+
+  def player_selection() do
+    GameIO.get_player_selection |> GameIO.parse_input
+  end
+  
   def play(board, players, over \\ false)
 
   def play(board, _players, over) when over do
@@ -73,7 +94,6 @@ defmodule GameManager do
     human_turn(board, player, is_valid)
   end
 
-
   def computer_turn(board, player) do
     move = ComputerPlayer.get_random_move(board)
     Board.update(board, move, player.token)
@@ -85,29 +105,10 @@ defmodule GameManager do
     GameIO.parse_input(user_input)
   end
 
-  def player_selection() do
-    GameIO.get_player_selection |> GameIO.parse_input
-  end
-
   def game_mode_selection() do
     GameIO.get_game_mode_selection() |> GameIO.parse_input
   end
 
-  def players(game_mode, selection \\ nil, is_valid_player \\ false)
-
-  def players(_game_mode, selection, is_valid_player) when is_valid_player do
-    {%{token: "X", human: selection == 1}, %{token: "O", human: selection == 2}}
-  end
-
-  def players(game_mode, _selection, _is_valid_player) do
-    cond do
-      game_mode == 1 -> {%{token: "X", human: true}, %{token: "O", human: true}}
-      true -> 
-        {selection, is_valid} = Validator.validate_numeric_selection(player_selection(), 1..2)
-        if not is_valid, do: GameIO.invalid_selection(selection, "player")
-        players(game_mode, selection, is_valid)
-    end
-  end
 
   def current_player(board, players) do
     {player1, player2} = players
