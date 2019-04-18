@@ -6,14 +6,14 @@ defmodule GameManager do
     { user_interface, game_status } = { deps.user_interface, deps.game_status} 
     setup_deps = %{
       user_interface: deps.user_interface,
-      board: deps.board,
+      board_manager: deps.board_manager,
       validator: deps.validator,
     }
 
     user_interface.welcome_message
 
     {board, players} = setup(setup_deps)
-    board = play(%{game_status: deps.game_status, user_interface: deps.user_interface}, board, players)
+    board = play(%{game_status: deps.game_status, user_interface: deps.user_interface, board_manager: deps.board_manager, validator: deps.validator}, board, players)
 
     user_interface.print_board(board)
 
@@ -31,7 +31,7 @@ defmodule GameManager do
   def setup(deps, game_mode \\ nil, is_valid_game_mode \\ false)
 
   def setup(deps, game_mode, true) do
-    {deps.board.empty, players(game_mode)}
+    {deps.board_manager.empty, players(game_mode)}
   end
 
   def setup(deps, _game_mode, _is_valid_game_mode) do
@@ -52,7 +52,7 @@ defmodule GameManager do
 
   def play(deps, board, players, _over) do
     player = current_player(board, players)
-    board = turn(%{user_interface: deps.user_interface}, board, player)
+    board = turn(%{user_interface: deps.user_interface, board_manager: deps.board_manager, validator: deps.validator}, board, player)
     play(deps, board, players, deps.game_status.is_over(board))
   end
 
@@ -60,31 +60,33 @@ defmodule GameManager do
     cond do 
       player.human -> 
         deps.user_interface.print_board(board)
-        human_turn(board, player)
+        human_turn(deps, board, player)
       true -> computer_turn(board, player)
     end
   end
 
-  def human_turn(board, player, move_is_valid \\ false)
+  def human_turn(deps, board, player, move_is_valid \\ false)
   
-  def human_turn(board, _player, true) do
+  def human_turn(_deps, board, _player, true) do
     board
   end
 
-  def human_turn(board, player, _move_is_valid) do
-    user_move = GameIO.get_move(player.token)
-    {user_move, is_valid, msg} = Validator.validate_move(board, user_move)
+  def human_turn(deps, board, player, _move_is_valid) do
+    {user_interface, board_manager, validator} = {deps.user_interface, deps.board_manager, deps.validator}
+
+    user_move = user_interface.get_move(player.token)
+    {user_move, is_valid, msg} = validator.validate_move(board, user_move)
 
     board = cond do 
       not is_valid -> 
-        GameIO.print_board(board)
-        GameIO.invalid_move(user_move, msg)
+        user_interface.print_board(board)
+        user_interface.invalid_move(user_move, msg)
         board
       true -> 
-        Board.update(board, user_move, player.token)
+        board_manager.update(board, user_move, player.token)
       end
     
-    human_turn(board, player, is_valid)
+    human_turn(deps, board, player, is_valid)
   end
 
   def computer_turn(board, player) do
