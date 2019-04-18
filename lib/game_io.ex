@@ -50,8 +50,12 @@ defmodule GameIO do
     end
   end
 
-  def invalid_input(msg) do
-    IO.puts(msg)
+  def invalid_move(move, msg) do
+    IO.puts("'#{move}' is not #{msg}. Please try again.")
+  end
+
+  def invalid_selection(selection, subject) do
+    IO.puts("\n#{selection} is not a valid #{subject} choice. Please try again.")
   end
 
   def print_result(board) do

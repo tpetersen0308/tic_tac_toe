@@ -94,14 +94,6 @@ defmodule GameIOTest do
     end
   end
 
-  test "it can print an invalid input message" do
-    msg = "You entered an invalid move. Please try again."
-    
-    assert capture_io(fn ->
-      GameIO.invalid_input(msg)
-    end) == msg <> "\n"
-  end
-
   describe "GameIO.print_results" do
     test "it can print the game results for a draw" do
       board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
