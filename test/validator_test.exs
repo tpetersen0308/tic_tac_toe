@@ -2,8 +2,6 @@ defmodule ValidatorTest do
   use ExUnit.Case
   doctest Validator
   import Validator
-  import Mock
-  import ExUnit.CaptureIO
 
   describe "validate_move" do
     test "it returns results when a move is not an integer" do
@@ -35,23 +33,19 @@ defmodule ValidatorTest do
     end
   end
 
-  describe("Validator.validate_selection") do
-    test "it can validate user input and recurse to get valid player selection" do
-      with_mocks([
-        {
-          GameManager, 
-          [],
-          [
-            player_selection: fn -> 1 end,
-            game_mode_selection: fn -> 2 end,
-          ]
-        },
-      ]) do
-      capture_io(fn -> 
-        assert validate_numeric_selection(5, 2, "player") == 1
-        assert validate_numeric_selection(5, 2, "game mode") == 2
-      end)
-      end
+  describe "valide_numeric_selection" do
+    test "it returns false when a selection is not in the valid range of options" do
+      options = 1..10
+      selection = 11
+
+      assert validate_numeric_selection(selection, options) == {selection, false}
+    end
+
+    test "it returns the user's selection when it is in the valid range of options" do
+      options = 1..10
+      selection = 8
+
+      assert validate_numeric_selection(selection, options) == {selection, true}
     end
   end
 end
