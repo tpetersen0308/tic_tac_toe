@@ -1,30 +1,25 @@
 defmodule Validator do
-  defguard is_not_valid_move(board, target_cell, move) when not is_integer(move) or move not in 1..map_size(board) or target_cell != nil
-
-  def validate_move(board, target_cell, move) when is_not_valid_move(board, target_cell, move) do
-    GameIO.print_board(board)
-    GameIO.invalid_input("'#{move}' is an invalid move. Please try again.")
-    user_move = GameManager.move(board)
-
-    validate_move(board, board[user_move], user_move)
+  def validate_move(board, move) do
+    cond do
+      not is_integer(move) -> {move, false, "an integer"}
+      move not in 1..map_size(board) -> {move, false, "within range"}
+      !!board[move] -> {move, false, "available"}
+      true -> {move, true, nil}
+    end
   end
 
-  def validate_move(_board, _target_cell, move) do
-    move
-  end
-
-  def validate_numeric_selection(player_selection, number_of_options, mode) when player_selection not in 1..number_of_options do
-    GameIO.invalid_input("\n#{player_selection} is not a valid #{mode} choice. Please try again.")
+  def validate_numeric_selection(selection, number_of_options, subject) when selection not in 1..number_of_options do
+    GameIO.invalid_selection(selection, subject)
     
-    selection = case mode do
+    selection = case subject do
       "player" -> GameManager.player_selection
       "game mode" -> GameManager.game_mode_selection
     end
 
-    validate_numeric_selection(selection, number_of_options, mode)
+    validate_numeric_selection(selection, number_of_options, subject)
   end
 
-  def validate_numeric_selection(player_selection, _number_of_options, _mode) do
-    player_selection
+  def validate_numeric_selection(selection, _number_of_options, _subject) do
+    selection
   end
 end

@@ -5,41 +5,33 @@ defmodule ValidatorTest do
   import Mock
   import ExUnit.CaptureIO
 
-  describe("Validator.validate_move") do
-    test "it can validate user input and recurse to get valid move selection" do
-      with_mocks([
-        {
-          GameManager, 
-          [],
-          [
-            move: fn(_) -> 5 end,
-          ]
-        },
-        {
-          GameIO,
-          [],
-          [
-            print_board: fn(_) -> nil end,
-            invalid_input: fn(_) -> nil end,
-          ]
-        }
-      ]) do
-        board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
-        move = "foo"
-        target_cell = board[move]
-        
-        assert validate_move(board, target_cell, move) == 5
+  describe "validate_move" do
+    test "it returns results when a move is not an integer" do
+      board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
+      move = "foo"
+      
+      assert validate_move(board, move) == {move, false, "an integer"}
+    end
 
-        move = "10"
-        target_cell = board[move]
-        
-        assert validate_move(board, target_cell, move) == 5
+    test "it returns results when a move is out of board range" do
+      board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
+      move = 10
 
-        move = "1"
-        target_cell = board[move]
-        
-        assert validate_move(board, target_cell, move) == 5
-      end
+      assert validate_move(board, move) == {move, false, "within range"}
+    end
+
+    test "it returns results when a move is unavailable" do
+      board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
+      move = 3
+
+      assert validate_move(board, move) == {move, false, "available"}
+    end
+
+    test "it returns results when a move is valid" do
+      board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
+      move = 5
+
+      assert validate_move(board, move) == {move, true, nil}   
     end
   end
 
