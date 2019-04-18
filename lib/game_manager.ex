@@ -12,7 +12,7 @@ defmodule GameManager do
 
     user_interface.welcome_message
     {board, players} = setup(setup_deps)
-    board = play(board, players)
+    board = play(%{game_status: deps.game_status}, board, players)
 
     user_interface.print_board(board)
 
@@ -43,16 +43,16 @@ defmodule GameManager do
     setup(deps, game_mode, is_valid)
   end
 
-  def play(board, players, over \\ false)
+  def play(deps, board, players, over \\ false)
 
-  def play(board, _players, true) do
+  def play(_deps, board, _players, true) do
     board
   end
 
-  def play(board, players, _over) do
+  def play(deps, board, players, _over) do
     player = current_player(board, players)
     board = turn(board, player)
-    play(board, players, Game.is_over(board))
+    play(deps, board, players, deps.game_status.is_over(board))
   end
 
   def turn(board, player) do
