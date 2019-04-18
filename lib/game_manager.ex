@@ -2,7 +2,7 @@ defmodule GameManager do
 
   def start(continue \\ true)
 
-  def start(continue) when continue do
+  def start(true) do
     GameIO.welcome_message
     {board, players} = setup()
     board = play(board, players)
@@ -20,7 +20,7 @@ defmodule GameManager do
 
   def setup(game_mode \\ nil, is_valid_game_mode \\ false)
 
-  def setup(game_mode, is_valid_game_mode) when is_valid_game_mode do
+  def setup(game_mode, true) do
     {Board.empty, players(game_mode)}
   end
 
@@ -34,7 +34,7 @@ defmodule GameManager do
 
   def play(board, players, over \\ false)
 
-  def play(board, _players, over) when over do
+  def play(board, _players, true) do
     board
   end
 
@@ -55,12 +55,12 @@ defmodule GameManager do
 
   def human_turn(board, player, move_is_valid \\ false)
   
-  def human_turn(board, _player, move_is_valid) when move_is_valid do
+  def human_turn(board, _player, true) do
     board
   end
 
   def human_turn(board, player, _move_is_valid) do
-    user_move = move(board, player)
+    user_move = move(player)
     {user_move, is_valid, msg} = Validator.validate_move(board, user_move)
 
     board = cond do 
@@ -80,14 +80,14 @@ defmodule GameManager do
     Board.update(board, move, player.token)
   end
 
-  def move(board, current_player) do
+  def move(current_player) do
     user_input = GameIO.get_move(current_player.token)
     GameIO.parse_input(user_input)
   end
 
   def players(game_mode, selection \\ nil, is_valid_player \\ false)
 
-  def players(_game_mode, selection, is_valid_player) when is_valid_player do
+  def players(_game_mode, selection, true) do
     {%{token: "X", human: selection == 1}, %{token: "O", human: selection == 2}}
   end
 
