@@ -28,20 +28,6 @@ defmodule GameTest do
     9 => "O"
   }
 
-  describe "Game.current_player" do
-    test "it returns 'O' when the turn count is odd" do
-      board = @empty_board
-      board = Map.put(board, 5, "X") |> Map.put(8, "O") |> Map.put(2, "X")
-      assert "O" == current_player(board)
-    end
-    
-    test "it returns 'X' when the turn count is even" do
-      board = @empty_board
-      board = Map.put(board, 5, "X") |> Map.put(8, "O") |> Map.put(2, "X") |> Map.put(6, "O")
-      assert "X" == current_player(board)
-    end
-  end
-
   describe "Game.check_win" do
     test "it will not identify nil series as a win" do
       board = @empty_board
@@ -84,20 +70,6 @@ defmodule GameTest do
       board = %{ 1 => "X", 2 => "X", 3 => "O", 4 => "O", 5 => "X", 6 => "X", 7 => "O", 8 => "X", 9 => "O"}
 
       assert is_over(board)
-    end
-  end
-
-  describe "Game.winner" do
-    test "it returns 'X' when X wins" do
-      board = %{ 1 => "X", 2 => "X", 3 => "O", 4 => "O", 5 => "X", 6 => "X", 7 => "O", 8 => "X", 9 => "O"}
-
-      assert "X" == winner(board)
-    end
-
-    test "it returns 'O' when O wins" do
-      board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "X", 5 => "X", 6 => nil, 7 => "O", 8 => "O", 9 => "O"}
-
-      assert "O" == winner(board)
     end
   end
 end

@@ -8,7 +8,9 @@ defmodule GameManager do
     board = play(board, players)
 
     GameIO.print_board(board)
-    GameIO.print_result(board)
+
+    winner = if Game.check_win(board), do: winner(board, players).token
+    GameIO.print_result(winner) 
 
     continue = GameIO.continue("q")
     start(continue)
@@ -104,5 +106,10 @@ defmodule GameManager do
   def current_player(board, players) do
     {player1, player2} = players
     if Integer.mod(Board.turn_count(board), 2) == 0, do: player1, else: player2
+  end
+
+  def winner(board, players) do
+    {player1, player2} = players
+    if current_player(board, players) == player1, do: player2, else: player1
   end
 end

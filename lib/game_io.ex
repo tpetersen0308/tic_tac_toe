@@ -66,8 +66,8 @@ defmodule GameIO do
     IO.puts("\n#{selection} is not a valid #{subject} choice. Please try again.")
   end
 
-  def print_result(board) do
-    if Game.check_draw(board), do: IO.puts("Cat's Game!"), else: IO.puts("#{Game.winner(board)} won!")
+  def print_result(winner) do
+    if winner, do: IO.puts("#{winner} won!"), else: IO.puts("Cat's Game!")
   end
 
   def continue(quit_char) do
