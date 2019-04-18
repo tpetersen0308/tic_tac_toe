@@ -46,7 +46,9 @@ defmodule GameManager do
 
   def turn(board, player) do
     cond do 
-      player.human -> human_turn(board, player)
+      player.human -> 
+        GameIO.print_board(board)
+        human_turn(board, player)
       true -> computer_turn(board, player)
     end
   end
@@ -58,12 +60,12 @@ defmodule GameManager do
   end
 
   def human_turn(board, player, _move_is_valid) do
-    GameIO.print_board(board)
     user_move = move(board)
     {user_move, is_valid, msg} = Validator.validate_move(board, user_move)
 
     board = cond do 
       not is_valid -> 
+        GameIO.print_board(board)
         GameIO.invalid_move(user_move, msg)
         board
       true -> 
