@@ -11,8 +11,9 @@ defmodule GameManager do
     }
 
     user_interface.welcome_message
+
     {board, players} = setup(setup_deps)
-    board = play(%{game_status: deps.game_status}, board, players)
+    board = play(%{game_status: deps.game_status, user_interface: deps.user_interface}, board, players)
 
     user_interface.print_board(board)
 
@@ -51,14 +52,14 @@ defmodule GameManager do
 
   def play(deps, board, players, _over) do
     player = current_player(board, players)
-    board = turn(board, player)
+    board = turn(%{user_interface: deps.user_interface}, board, player)
     play(deps, board, players, deps.game_status.is_over(board))
   end
 
-  def turn(board, player) do
+  def turn(deps, board, player) do
     cond do 
       player.human -> 
-        GameIO.print_board(board)
+        deps.user_interface.print_board(board)
         human_turn(board, player)
       true -> computer_turn(board, player)
     end
