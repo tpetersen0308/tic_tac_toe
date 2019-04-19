@@ -79,7 +79,7 @@ defmodule GameManager do
 
         deps.user_interface.print_board(board)
         human_turn(human_turn_deps, board, player)
-      true -> computer_turn(%{computer: deps.computer}, board)
+      true -> computer_turn(%{computer: deps.computer, board_manager: deps.board_manager}, board)
     end
     deps.board_manager.update(board, move, player.token)
   end
@@ -109,7 +109,7 @@ defmodule GameManager do
   end
 
   def computer_turn(deps, board) do
-    deps.computer.get_random_move(board)
+    deps.computer.get_random_move(deps.board_manager, board)
   end
   
   def players(deps, game_mode, selection \\ nil, is_valid_player \\ false)
