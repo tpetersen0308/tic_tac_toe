@@ -8,9 +8,13 @@ defmodule TicTacToe.MixProject do
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
       escript: [main_module: CLI],
-      deps: deps()
+      deps: deps(),
+      elixirc_paths: compiler_paths(Mix.env())
     ]
   end
+
+  def compiler_paths(:test), do: ["test/helpers"] ++ compiler_paths(:prod)
+  def compiler_paths(_), do: ["lib"]
 
   # Run "mix help compile.app" to learn about applications.
   def application do
