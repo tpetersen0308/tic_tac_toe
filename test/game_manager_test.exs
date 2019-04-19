@@ -33,6 +33,11 @@ defmodule GameManagerTest do
     def current_player(_,_,_), do: %{token: "X", human: true}
   end
 
+  defmodule FakeSetup do
+    def players(_,1), do: {%{token: "X", human: true}, %{token: "O", human: true}}
+    def players(_,2), do: {%{token: "X", human: true}, %{token: "O", human: false}}
+  end
+
   test "it can execute a game loop" do
     fake_deps = %{
       user_interface: FakeIO,
@@ -56,6 +61,7 @@ defmodule GameManagerTest do
         user_interface: FakeIO,
         board_manager: FakeBoard,
         validator: FakeValidator,
+        game_setup: FakeSetup
       }
 
       capture_io([input: "1\n"], fn -> 
@@ -71,6 +77,7 @@ defmodule GameManagerTest do
         user_interface: FakeIO,
         board_manager: FakeBoard,
         validator: FakeValidator,
+        game_setup: FakeSetup
       }
 
       capture_io([input: "2\n"], fn -> 
@@ -80,14 +87,5 @@ defmodule GameManagerTest do
         }
       end)
     end
-  end
-
-  test "it can get the players based on the user's player choice" do
-  fake_deps = %{
-    user_interface: FakeIO,
-    validator: FakeValidator
-  }
-
-  assert players(fake_deps, 2) == {%{token: "X", human: true}, %{token: "O", human: false}}
   end
 end 

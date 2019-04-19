@@ -8,13 +8,16 @@ defmodule GameManager do
     setup_deps = %{
       user_interface: deps.user_interface,
       board_manager: deps.board_manager,
+      game_setup: deps.game_setup,
       validator: deps.validator,
     }
+
+    play_deps = Map.delete(deps, :game_setup)
 
     user_interface.welcome_message
 
     {board, players} = setup_game(setup_deps)
-    board = play(deps, board, players)
+    board = play(play_deps, board, players)
 
     user_interface.print_board(board)
 
@@ -33,11 +36,12 @@ defmodule GameManager do
 
   def setup_game(deps, game_mode, true) do
     players_deps = %{
-      user_interface: deps.user_interface, 
+      user_interface: deps.user_interface,
+      game_setup: deps.game_setup,
       validator: deps.validator
     }
     
-    {deps.board_manager.empty, players(players_deps, game_mode)}
+    {deps.board_manager.empty, deps.game_setup.players(players_deps, game_mode)}
   end
 
   def setup_game(deps, _game_mode, _is_valid_game_mode) do
@@ -107,24 +111,5 @@ defmodule GameManager do
       end
     
     human_turn(deps, board, player, is_valid)
-  end
-  
-  def players(deps, game_mode, selection \\ nil, is_valid_player \\ false)
-
-  def players(_deps, _game_mode, selection, true) do
-    {%{token: "X", human: selection == 1}, %{token: "O", human: selection == 2}}
-  end
-
-  def players(deps, game_mode, _selection, _is_valid_player) do
-    {user_interface, validator} = {deps.user_interface, deps.validator}
-
-    cond do
-      game_mode == 1 -> {%{token: "X", human: true}, %{token: "O", human: true}}
-      true -> 
-        {selection, is_valid} = validator.validate_numeric_selection(user_interface.player_selection(), 1..2)
-        
-        if not is_valid, do: user_interface.invalid_selection(selection, "player")
-        players(deps, game_mode, selection, is_valid)
-    end
   end
 end
