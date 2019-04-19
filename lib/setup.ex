@@ -13,7 +13,8 @@ defmodule Setup do
   def game(deps, _game_mode, _is_valid_game_mode) do
     {user_interface, validator} = {deps.user_interface, deps.validator}
 
-    {game_mode, is_valid} = validator.validate_numeric_selection(user_interface.game_mode_selection(), 1..2)
+    {game_mode, is_valid} = user_interface.game_mode_selection
+      |> validator.validate_numeric_selection(1..2)
     
     if not is_valid, do: user_interface.invalid_selection(game_mode, "game mode")
 
@@ -32,7 +33,8 @@ defmodule Setup do
     cond do
       game_mode == 1 -> {%{token: "X", human: true}, %{token: "O", human: true}}
       true -> 
-        {selection, is_valid} = validator.validate_numeric_selection(user_interface.player_selection(), 1..2)
+        {selection, is_valid} = user_interface.player_selection
+        |> validator.validate_numeric_selection(1..2)
         
         if not is_valid, do: user_interface.invalid_selection(selection, "player")
         players(deps, game_mode, selection, is_valid)
