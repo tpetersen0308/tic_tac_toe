@@ -21,7 +21,7 @@ defmodule GameManager do
 
     user_interface.print_board(board)
 
-    winner = if game_status.check_win(board), do: game_status.winner(board_manager, board, players).token
+    winner = game_status.check_win(board)
     user_interface.print_result(winner) 
 
     continue = user_interface.continue("q")
@@ -46,10 +46,10 @@ defmodule GameManager do
       computer: deps.computer
     }
 
-    player = deps.game_status.current_player(deps.board_manager, board, players)
-    board = turn(turn_deps, board, player)
+    {player1 , player2} = players
+    board = turn(turn_deps, board, player1)
     is_over = deps.game_status.is_over(deps.board_manager, board)
-    play(deps, board, players, is_over)
+    play(deps, board, {player2, player1}, is_over)
   end
 
   def turn(deps, board, player) do

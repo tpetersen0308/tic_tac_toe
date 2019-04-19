@@ -59,7 +59,7 @@ defmodule GameTest do
             |> Map.put(unquote(pos2), "X")
             |> Map.put(unquote(pos3), "X")
 
-          assert check_win(board)
+          assert check_win(board) == "X"
         end 
       end
     )
@@ -78,42 +78,6 @@ defmodule GameTest do
       board = %{ 1 => "X", 2 => "X", 3 => "O", 4 => "O", 5 => "X", 6 => "X", 7 => "O", 8 => "X", 9 => "O"}
 
       assert is_over(FakeBoard, board)
-    end
-  end
-
-  describe "current_player" do
-    test "it returns player 1 when the turn count is even" do
-      board = %{ 1 => nil, 2 => "X", 3 => nil, 4 => nil, 5 => "X", 6 => "O", 7 => nil, 8 => "O", 9 => nil }
-      players = {%{token: "X", human: true}, %{token: "O", human: true}}
-      {player1, _} = players
-      
-      assert player1 == current_player(FakeBoard, board, players)
-    end
-
-    test "it returns player 2 when the turn count is odd" do
-      board = %{ 1 => nil, 2 => "X", 3 => nil, 4 => nil, 5 => "X", 6 => nil, 7 => nil, 8 => "O", 9 => nil }
-      players = {%{token: "X", human: true}, %{token: "O", human: true}}
-      {_, player2} = players
-      
-      assert player2 == current_player(FakeBoard, board, players)
-    end
-  end
-
-  describe "winner" do
-    test "it returns player 1 when X wins" do
-      board = %{ 1 => "X", 2 => "X", 3 => "O", 4 => "O", 5 => "X", 6 => "X", 7 => "O", 8 => "X", 9 => "O"}
-      players = {%{token: "X", human: true}, %{token: "O", human: true}}
-      {player1, _} = players
-
-      assert winner(FakeBoard, board, players) == player1
-    end
-
-    test "it returns player 2 when O wins" do
-      board = %{ 1 => "X", 2 => "X", 3 => nil, 4 => "O", 5 => "O", 6 => "O", 7 => "X", 8 => nil, 9 => nil}
-      players = {%{token: "X", human: true}, %{token: "O", human: true}}
-      {_, player2} = players
-
-      assert winner(FakeBoard, board, players) == player2
     end
   end
 end

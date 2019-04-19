@@ -11,26 +11,20 @@ defmodule GameStatus do
   ]
 
   def check_win(board) do
-    @win_combos |> Enum.any?(fn {pos1, pos2, pos3} ->
+    winner = case @win_combos |> Enum.find(fn {pos1, pos2, pos3} ->
       board[pos1] == board[pos2] and board[pos1] == board[pos3] and !!board[pos1]
-    end) 
+    end) do
+      {winner, _, _} -> board[winner]
+      nil -> nil
+    end
+    winner
   end
 
   def check_draw(board_manager, board) do
-    board_manager.is_full(board) and not check_win(board)
+    board_manager.is_full(board) and !check_win(board)
   end
 
   def is_over(board_manager, board) do
-    check_win(board) or check_draw(board_manager, board)
-  end
-
-  def current_player(board_manager, board, players) do
-    {player1, player2} = players
-    if Integer.mod(board_manager.turn_count(board), 2) == 0, do: player1, else: player2
-  end
-
-  def winner(board_manager, board, players) do
-    {player1, player2} = players
-    if current_player(board_manager, board, players) == player1, do: player2, else: player1
+    !!check_win(board) or check_draw(board_manager, board)
   end
 end
