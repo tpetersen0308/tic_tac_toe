@@ -23,4 +23,9 @@ defmodule GameStatus do
   def is_over(board_manager, board) do
     check_win(board) or check_draw(board_manager, board)
   end
+
+  def current_player(board_manager, board, players) do
+    {player1, player2} = players
+    if Integer.mod(board_manager.turn_count(board), 2) == 0, do: player1, else: player2
+  end
 end

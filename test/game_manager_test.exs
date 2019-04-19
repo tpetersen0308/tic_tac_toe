@@ -30,6 +30,7 @@ defmodule GameManagerTest do
 
   defmodule FakeGame do
     def is_over(_,_), do: true
+    def current_player(_,_,_), do: %{token: "X", human: true}
   end
 
   test "it can execute a game loop" do
@@ -78,32 +79,6 @@ defmodule GameManagerTest do
           {%{token: "X", human: true}, %{token: "O", human: false}}
         }
       end)
-    end
-  end
-
-  describe "GameManager.current_player" do
-    test "it returns player 1 when the turn count is even" do
-      fake_deps = %{
-        board_manager: FakeBoard
-      }
-
-      board = %{ 1 => nil, 2 => "X", 3 => nil, 4 => nil, 5 => "X", 6 => "O", 7 => nil, 8 => "O", 9 => nil }
-      players = {%{token: "X", human: true}, %{token: "O", human: true}}
-      {player1, _} = players
-      
-      assert player1 == current_player(fake_deps, board, players)
-    end
-
-    test "it returns player 2 when the turn count is odd" do
-      fake_deps = %{
-        board_manager: FakeBoard
-      }
-
-      board = %{ 1 => nil, 2 => "X", 3 => nil, 4 => nil, 5 => "X", 6 => nil, 7 => nil, 8 => "O", 9 => nil }
-      players = {%{token: "X", human: true}, %{token: "O", human: true}}
-      {_, player2} = players
-      
-      assert player2 == current_player(fake_deps, board, players)
     end
   end
 
