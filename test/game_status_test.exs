@@ -8,6 +8,8 @@ defmodule GameTest do
     def is_full(_), do: true
     def turn_count(%{ 1 => nil, 2 => "X", 3 => nil, 4 => nil, 5 => "X", 6 => "O", 7 => nil, 8 => "O", 9 => nil }), do: 4
     def turn_count(%{ 1 => nil, 2 => "X", 3 => nil, 4 => nil, 5 => "X", 6 => nil, 7 => nil, 8 => "O", 9 => nil }), do: 3
+    def turn_count(%{ 1 => "X", 2 => "X", 3 => "O", 4 => "O", 5 => "X", 6 => "X", 7 => "O", 8 => "X", 9 => "O"}), do: 9
+    def turn_count(%{ 1 => "X", 2 => "X", 3 => nil, 4 => "O", 5 => "O", 6 => "O", 7 => "X", 8 => nil, 9 => nil}), do: 6
   end
 
   @empty_board %{
@@ -94,6 +96,24 @@ defmodule GameTest do
       {_, player2} = players
       
       assert player2 == current_player(FakeBoard, board, players)
+    end
+  end
+
+  describe "winner" do
+    test "it returns player 1 when X wins" do
+      board = %{ 1 => "X", 2 => "X", 3 => "O", 4 => "O", 5 => "X", 6 => "X", 7 => "O", 8 => "X", 9 => "O"}
+      players = {%{token: "X", human: true}, %{token: "O", human: true}}
+      {player1, _} = players
+
+      assert winner(FakeBoard, board, players) == player1
+    end
+
+    test "it returns player 2 when O wins" do
+      board = %{ 1 => "X", 2 => "X", 3 => nil, 4 => "O", 5 => "O", 6 => "O", 7 => "X", 8 => nil, 9 => nil}
+      players = {%{token: "X", human: true}, %{token: "O", human: true}}
+      {_, player2} = players
+
+      assert winner(FakeBoard, board, players) == player2
     end
   end
 end

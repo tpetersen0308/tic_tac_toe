@@ -3,7 +3,7 @@ defmodule GameManager do
   def start(deps, continue \\ true)
 
   def start(deps, true) do
-    { user_interface, game_status } = { deps.user_interface, deps.game_status} 
+    { user_interface, game_status, board_manager } = { deps.user_interface, deps.game_status, deps.board_manager} 
     
     setup_deps = %{
       user_interface: deps.user_interface,
@@ -18,7 +18,7 @@ defmodule GameManager do
 
     user_interface.print_board(board)
 
-    winner = if game_status.check_win(board), do: winner(%{board_manager: deps.board_manager}, board, players).token
+    winner = if game_status.check_win(board), do: game_status.winner(board_manager, board, players).token
     user_interface.print_result(winner) 
 
     continue = user_interface.continue("q")
@@ -128,8 +128,8 @@ defmodule GameManager do
     end
   end
 
-  def winner(deps, board, players) do
-    {player1, player2} = players
-    if deps.game_status.current_player(deps, board, players) == player1, do: player2, else: player1
-  end
+  # def winner(deps, board, players) do
+  #   {player1, player2} = players
+  #   if deps.game_status.current_player(deps, board, players) == player1, do: player2, else: player1
+  # end
 end

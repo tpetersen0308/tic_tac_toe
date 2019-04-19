@@ -28,4 +28,9 @@ defmodule GameStatus do
     {player1, player2} = players
     if Integer.mod(board_manager.turn_count(board), 2) == 0, do: player1, else: player2
   end
+
+  def winner(board_manager, board, players) do
+    {player1, player2} = players
+    if current_player(board_manager, board, players) == player1, do: player2, else: player1
+  end
 end
