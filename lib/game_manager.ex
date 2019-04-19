@@ -66,7 +66,8 @@ defmodule GameManager do
 
     player = current_player(%{board_manager: deps.board_manager}, board, players)
     board = turn(turn_deps, board, player)
-    play(deps, board, players, deps.game_status.is_over(board))
+    is_over = deps.game_status.is_over(deps.board_manager, board)
+    play(deps, board, players, is_over)
   end
 
   def turn(deps, board, player) do

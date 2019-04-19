@@ -16,11 +16,11 @@ defmodule Game do
     end) 
   end
 
-  def check_draw(board) do
-    Board.is_full(board) and not check_win(board)
+  def check_draw(board_manager, board) do
+    board_manager.is_full(board) and not check_win(board)
   end
 
-  def is_over(board) do
-    check_win(board) or check_draw(board)
+  def is_over(board_manager, board) do
+    check_win(board) or check_draw(board_manager, board)
   end
 end

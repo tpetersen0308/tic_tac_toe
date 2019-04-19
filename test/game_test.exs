@@ -4,6 +4,10 @@ defmodule GameTest do
 
   import Game
 
+  defmodule FakeBoard do
+    def is_full(_), do: true
+  end
+
   @empty_board %{
     1 => nil,
     2 => nil,
@@ -58,18 +62,18 @@ defmodule GameTest do
   end
 
   test "it can check for a draw" do
-    assert check_draw(@cats_game_board)
+    assert check_draw(FakeBoard, @cats_game_board)
   end
 
   describe "Game.is_over" do
     test "it can tell when the game has ended in a cats game" do
-      assert is_over(@cats_game_board)
+      assert is_over(FakeBoard, @cats_game_board)
     end
 
     test "it can tell when the game has ended in a win" do
       board = %{ 1 => "X", 2 => "X", 3 => "O", 4 => "O", 5 => "X", 6 => "X", 7 => "O", 8 => "X", 9 => "O"}
 
-      assert is_over(board)
+      assert is_over(FakeBoard, board)
     end
   end
 end

@@ -29,7 +29,7 @@ defmodule GameManagerTest do
   end
 
   defmodule FakeGame do
-    def is_over(_), do: true
+    def is_over(_,_), do: true
   end
 
   test "it can execute a game loop" do
