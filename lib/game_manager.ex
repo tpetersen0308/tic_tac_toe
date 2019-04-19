@@ -13,7 +13,7 @@ defmodule GameManager do
 
     user_interface.welcome_message
 
-    {board, players} = setup(setup_deps)
+    {board, players} = setup_game(setup_deps)
     board = play(deps, board, players)
 
     user_interface.print_board(board)
@@ -29,9 +29,9 @@ defmodule GameManager do
     IO.puts("Goodbye")
   end
 
-  def setup(deps, game_mode \\ nil, is_valid_game_mode \\ false)
+  def setup_game(deps, game_mode \\ nil, is_valid_game_mode \\ false)
 
-  def setup(deps, game_mode, true) do
+  def setup_game(deps, game_mode, true) do
     players_deps = %{
       user_interface: deps.user_interface, 
       validator: deps.validator
@@ -40,14 +40,14 @@ defmodule GameManager do
     {deps.board_manager.empty, players(players_deps, game_mode)}
   end
 
-  def setup(deps, _game_mode, _is_valid_game_mode) do
+  def setup_game(deps, _game_mode, _is_valid_game_mode) do
     {user_interface, validator} = {deps.user_interface, deps.validator}
 
     {game_mode, is_valid} = validator.validate_numeric_selection(user_interface.game_mode_selection(), 1..2)
     
     if not is_valid, do: user_interface.invalid_selection(game_mode, "game mode")
 
-    setup(deps, game_mode, is_valid)
+    setup_game(deps, game_mode, is_valid)
   end
 
   def play(deps, board, players, over \\ false)
