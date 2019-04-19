@@ -127,9 +127,4 @@ defmodule GameManager do
         players(deps, game_mode, selection, is_valid)
     end
   end
-
-  # def winner(deps, board, players) do
-  #   {player1, player2} = players
-  #   if deps.game_status.current_player(deps, board, players) == player1, do: player2, else: player1
-  # end
 end
