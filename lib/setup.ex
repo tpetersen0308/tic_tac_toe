@@ -29,7 +29,7 @@ defmodule Setup do
 
   def players(deps, game_mode, _selection, _is_valid_player) do
     {user_interface, validator} = {deps.user_interface, deps.validator}
-    {%{token: "X", human: true}, %{token: "O", human: true}}
+
     cond do
       game_mode == 1 -> {%{token: "X", human: true}, %{token: "O", human: true}}
       true -> 
