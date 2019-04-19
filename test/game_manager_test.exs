@@ -54,38 +54,4 @@ defmodule GameManagerTest do
       assert updated_board == play(fake_deps, board, players)
     end)
   end
-
-  describe "GameManager.setup" do
-    test "it can set up a new human vs human game" do
-      fake_deps = %{
-        user_interface: FakeIO,
-        board_manager: FakeBoard,
-        validator: FakeValidator,
-        game_setup: FakeSetup
-      }
-
-      capture_io([input: "1\n"], fn -> 
-        assert setup_game(fake_deps) == {
-          %{ 1 => nil, 2 => nil, 3 => nil, 4 => nil, 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil },
-          {%{token: "X", human: true}, %{token: "O", human: true}}
-        }
-      end)
-    end
-
-    test "it can set up a new human vs computer game" do
-      fake_deps = %{
-        user_interface: FakeIO,
-        board_manager: FakeBoard,
-        validator: FakeValidator,
-        game_setup: FakeSetup
-      }
-
-      capture_io([input: "2\n"], fn -> 
-        assert setup_game(fake_deps) == {
-          %{ 1 => nil, 2 => nil, 3 => nil, 4 => nil, 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil },
-          {%{token: "X", human: true}, %{token: "O", human: false}}
-        }
-      end)
-    end
-  end
 end 

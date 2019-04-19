@@ -48,7 +48,7 @@ defmodule SetupTest do
         board_manager: FakeBoard,
         validator: FakeValidator
       }
-      Helpers.Stack.setup(["foo", 2, "foo", 1])
+      Helpers.Stack.setup(["foo", 2, "foo", 1 ])
       
       assert game(fake_deps) == {
         %{ 1 => nil, 2 => nil, 3 => nil, 4 => nil, 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil },

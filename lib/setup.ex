@@ -1,24 +1,24 @@
 defmodule Setup do
-  # def setup_game(deps, game_mode \\ nil, is_valid_game_mode \\ false)
+  def game(deps, game_mode \\ nil, is_valid_game_mode \\ false)
 
-  # def setup_game(deps, game_mode, true) do
-  #   players_deps = %{
-  #     user_interface: deps.user_interface, 
-  #     validator: deps.validator
-  #   }
+  def game(deps, game_mode, true) do
+    players_deps = %{
+      user_interface: deps.user_interface, 
+      validator: deps.validator
+    }
     
-  #   {deps.board_manager.empty, players(players_deps, game_mode)}
-  # end
+    {deps.board_manager.empty, players(players_deps, game_mode)}
+  end
 
-  # def setup_game(deps, _game_mode, _is_valid_game_mode) do
-  #   {user_interface, validator} = {deps.user_interface, deps.validator}
+  def game(deps, _game_mode, _is_valid_game_mode) do
+    {user_interface, validator} = {deps.user_interface, deps.validator}
 
-  #   {game_mode, is_valid} = validator.validate_numeric_selection(user_interface.game_mode_selection(), 1..2)
+    {game_mode, is_valid} = validator.validate_numeric_selection(user_interface.game_mode_selection(), 1..2)
     
-  #   if not is_valid, do: user_interface.invalid_selection(game_mode, "game mode")
+    if not is_valid, do: user_interface.invalid_selection(game_mode, "game mode")
 
-  #   setup_game(deps, game_mode, is_valid)
-  # end
+    game(deps, game_mode, is_valid)
+  end
 
   def players(deps, game_mode, selection \\ nil, is_valid_player \\ false)
 
