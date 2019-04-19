@@ -1,8 +1,8 @@
 defmodule GameTest do
   use ExUnit.Case
-  doctest Game
+  doctest GameStatus
 
-  import Game
+  import GameStatus
 
   defmodule FakeBoard do
     def is_full(_), do: true

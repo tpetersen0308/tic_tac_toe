@@ -1,7 +1,7 @@
 defmodule CLI do
   @deps %{
     user_interface: GameIO,
-    game_status: Game,
+    game_status: GameStatus,
     board_manager: Board,
     validator: Validator,
     computer: ComputerPlayer,
