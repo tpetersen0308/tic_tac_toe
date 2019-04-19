@@ -52,11 +52,11 @@ defmodule GameIO do
   end
 
   def player_selection() do
-    get_player_selection |> parse_input
+    get_player_selection() |> parse_input()
   end
 
   def game_mode_selection() do
-    get_game_mode_selection() |> parse_input
+    get_game_mode_selection() |> parse_input()
   end
 
   def invalid_move(move, msg) do
