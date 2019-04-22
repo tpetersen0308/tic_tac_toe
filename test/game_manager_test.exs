@@ -92,4 +92,44 @@ defmodule TicTacToe.GameManagerTest do
       Helpers.Stack.teardown
     end
   end
+
+  describe "turn" do
+    test "it executes a turn for a human player" do
+      fake_deps = %{
+        user_interface: FakeIO,
+        board_manager: FakeBoard,
+        human_player: FakeHuman,
+        computer_player: FakeComputer,
+        validator: FakeValidator
+      }
+      
+      board = %{ 1 => nil, 2 => nil, 3 => nil, 4 => nil, 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil }
+      player = %{token: "X", human: true}
+      
+      Helpers.Stack.setup([1])
+
+      assert turn(fake_deps, board, player) == %{ 1 => "X", 2 => nil, 3 => nil, 4 => nil, 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil }
+
+      Helpers.Stack.teardown
+    end
+
+    test "it executes a turn for a computer player" do
+      fake_deps = %{
+        user_interface: FakeIO,
+        board_manager: FakeBoard,
+        human_player: FakeHuman,
+        computer_player: FakeComputer,
+        validator: FakeValidator
+      }
+      
+      board = %{ 1 => nil, 2 => nil, 3 => nil, 4 => nil, 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil }
+      player = %{token: "X", human: false}
+      
+      Helpers.Stack.setup([1])
+
+      assert turn(fake_deps, board, player) == %{ 1 => "X", 2 => nil, 3 => nil, 4 => nil, 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil }
+
+      Helpers.Stack.teardown
+    end
+  end
 end 
