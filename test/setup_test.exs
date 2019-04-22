@@ -7,10 +7,7 @@ defmodule TicTacToe.SetupTest do
 
   defmodule FakeIO do
     def invalid_input(_,_), do: nil
-    def get_player_selection() do
-      Helpers.Stack.pop()
-    end
-    def get_game_mode_selection() do
+    def get_numeric_selection(_,_) do
       Helpers.Stack.pop()
     end
   end
