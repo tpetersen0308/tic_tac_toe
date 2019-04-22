@@ -63,7 +63,7 @@ defmodule TicTacToe.GameManager do
 
         deps.user_interface.print_board(board)
         deps.human_player.move(human_player_deps, board, player)
-      true -> deps.computer_player.turn(deps.board_manager, board)
+      true -> deps.computer_player.move(deps.board_manager, board)
     end
     deps.board_manager.update(board, move, player.token)
   end
