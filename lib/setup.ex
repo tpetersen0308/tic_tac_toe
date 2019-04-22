@@ -13,10 +13,10 @@ defmodule TicTacToe.Setup do
   def game(deps, _game_mode, _is_valid_game_mode) do
     {user_interface, validator} = {deps.user_interface, deps.validator}
 
-    {game_mode, is_valid} = user_interface.game_mode_selection
+    {game_mode, is_valid} = user_interface.get_game_mode_selection
       |> validator.validate_numeric_selection(1..2)
     
-    if not is_valid, do: user_interface.invalid_selection(game_mode, "game mode")
+    if not is_valid, do: user_interface.invalid_input(game_mode, "a valid game mode")
 
     game(deps, game_mode, is_valid)
   end
@@ -33,10 +33,10 @@ defmodule TicTacToe.Setup do
     cond do
       game_mode == 1 -> {%{token: "X", human: true}, %{token: "O", human: true}}
       true -> 
-        {selection, is_valid} = user_interface.player_selection
+        {selection, is_valid} = user_interface.get_player_selection
         |> validator.validate_numeric_selection(1..2)
         
-        if not is_valid, do: user_interface.invalid_selection(selection, "player")
+        if not is_valid, do: user_interface.invalid_input(selection, "a valid player")
         players(deps, game_mode, selection, is_valid)
     end
   end

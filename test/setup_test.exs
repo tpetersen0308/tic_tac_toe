@@ -6,11 +6,11 @@ defmodule TicTacToe.SetupTest do
   doctest TicTacToe.Setup
 
   defmodule FakeIO do
-    def invalid_selection(_,_), do: nil
-    def player_selection() do
+    def invalid_input(_,_), do: nil
+    def get_player_selection() do
       Helpers.Stack.pop()
     end
-    def game_mode_selection() do
+    def get_game_mode_selection() do
       Helpers.Stack.pop()
     end
   end
