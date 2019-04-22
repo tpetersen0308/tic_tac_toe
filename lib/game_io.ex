@@ -36,12 +36,12 @@ defmodule TicTacToe.GameIO do
   end
 
   def get_player_selection() do
-    IO.gets("Enter a number to select a player:\n  1 >> Player 1\n  2 >> Player 2\n  ")
+    IO.gets("\nEnter a number to select a player:\n  1 >> Player 1\n  2 >> Player 2\n  ")
       |> parse_input
   end
 
   def get_game_mode_selection() do
-    IO.gets("Enter a number to select a game mode:\n  1 >> Human vs. Human\n  2 >> Human vs. Computer\n  ")
+    IO.gets("\nEnter a number to select a game mode:\n  1 >> Human vs. Human\n  2 >> Human vs. Computer\n  ")
       |> parse_input
   end
 
@@ -53,12 +53,8 @@ defmodule TicTacToe.GameIO do
     end
   end
 
-  def invalid_move(move, msg) do
-    IO.puts("'#{move}' is not #{msg}. Please try again.")
-  end
-
-  def invalid_selection(selection, subject) do
-    IO.puts("\n#{selection} is not a valid #{subject} choice. Please try again.")
+  def invalid_input(input, msg) do
+    IO.puts("'#{input}' is not #{msg}. Please try again.")
   end
 
   def print_result(winner) do
