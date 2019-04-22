@@ -35,13 +35,13 @@ defmodule TicTacToe.GameIO do
       |> parse_input
   end
 
-  def get_player_selection() do
-    IO.gets("\nEnter a number to select a player:\n  1 >> Player 1\n  2 >> Player 2\n  ")
-      |> parse_input
-  end
-
-  def get_game_mode_selection() do
-    IO.gets("\nEnter a number to select a game mode:\n  1 >> Human vs. Human\n  2 >> Human vs. Computer\n  ")
+  def get_numeric_selection(subj, opts) do
+    header = "\nEnter a number to select a #{subj}:\n  " 
+    menu = opts
+      |> Enum.with_index(1)
+      |> Enum.reduce("", fn ({opt, num}, acc) -> acc <> "#{num} >> #{opt}\n  " end)
+    msg = header <> menu
+    IO.gets(msg)
       |> parse_input
   end
 
