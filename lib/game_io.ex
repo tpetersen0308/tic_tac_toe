@@ -2,7 +2,7 @@ defmodule TicTacToe.GameIO do
   
   def print_board(board) do
     formatted_board = format_board(board)
-    IO.puts("\n" <> formatted_board <> "\n")
+    IO.puts("\n" <> formatted_board)
   end
 
   def format_cells(board) do
@@ -27,11 +27,11 @@ defmodule TicTacToe.GameIO do
   end
 
   def welcome_message() do
-    IO.puts("\nWelcome to Tic Tac Toe!\n")
+    IO.puts("\nWelcome to Tic Tac Toe!")
   end
 
   def get_move(player) do
-    IO.gets("It is #{player}'s turn. Please enter an available position: ")
+    IO.gets("\nIt is #{player}'s turn. Please enter an available position: ")
       |> parse_input
   end
 
@@ -54,7 +54,7 @@ defmodule TicTacToe.GameIO do
   end
 
   def invalid_input(input, msg) do
-    IO.puts("'#{input}' is not #{msg}. Please try again.")
+    IO.puts("\n'#{input}' is not #{msg}. Please try again.")
   end
 
   def print_result(winner) do
@@ -62,7 +62,7 @@ defmodule TicTacToe.GameIO do
   end
 
   def continue(quit_char) do
-    input = IO.gets("Enter <#{quit_char}> to quit, any other key to play again: ") 
+    input = IO.gets("\nEnter <#{quit_char}> to quit, any other key to play again: ") 
     String.trim(input) !== quit_char
   end
 end
