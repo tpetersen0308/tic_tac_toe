@@ -1,4 +1,4 @@
-defmodule Setup do
+defmodule TicTacToe.Setup do
   def game(deps, game_mode \\ nil, is_valid_game_mode \\ false)
 
   def game(deps, game_mode, true) do

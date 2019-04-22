@@ -1,8 +1,8 @@
-defmodule ComputerPlayerTest do
+defmodule TicTacToe.ComputerPlayerTest do
   use ExUnit.Case
-  doctest ComputerPlayer
+  doctest TicTacToe.ComputerPlayer
 
-  import ComputerPlayer
+  import TicTacToe.ComputerPlayer
 
   defmodule FakeBoardManager do
     def available_positions(_), do: [3,5,6,8]

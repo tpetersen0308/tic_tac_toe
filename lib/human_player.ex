@@ -1,3 +1,3 @@
-defmodule HumanPlayer do
+defmodule TicTacToe.HumanPlayer do
   
 end

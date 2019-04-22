@@ -1,4 +1,4 @@
-defmodule Validator do
+defmodule TicTacToe.Validator do
   def validate_move(board, move) do
     cond do
       not is_integer(move) -> {move, false, "an integer"}

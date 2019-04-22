@@ -1,8 +1,8 @@
-defmodule GameManagerTest do
+defmodule TicTacToe.GameManagerTest do
   use ExUnit.Case
-  import GameManager
+  import TicTacToe.GameManager
   import ExUnit.CaptureIO
-  doctest GameManager
+  doctest TicTacToe.GameManager
 
   defmodule FakeIO do
     def get_move(_), do: 3

@@ -1,7 +1,7 @@
-defmodule ValidatorTest do
+defmodule TicTacToe.ValidatorTest do
   use ExUnit.Case
-  doctest Validator
-  import Validator
+  doctest TicTacToe.Validator
+  import TicTacToe.Validator
 
   describe "validate_move" do
     test "it returns results when a move is not an integer" do

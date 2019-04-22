@@ -1,14 +1,15 @@
-defmodule CLI do
+defmodule TicTacToe.CLI do
+
   @deps %{
-    user_interface: GameIO,
-    game_status: GameStatus,
-    game_setup: Setup,
-    board_manager: Board,
-    validator: Validator,
-    computer: ComputerPlayer,
+    user_interface: TicTacToe.GameIO,
+    game_status: TicTacToe.GameStatus,
+    game_setup: TicTacToe.Setup,
+    board_manager: TicTacToe.Board,
+    validator: TicTacToe.Validator,
+    computer: TicTacToe.ComputerPlayer,
   }
 
   def main(_args \\ []) do
-    GameManager.start(@deps)
+    TicTacToe.GameManager.start(@deps)
   end
 end

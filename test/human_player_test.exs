@@ -1,5 +1,5 @@
-defmodule HumanPlayerTest do
+defmodule TicTacToe.HumanPlayerTest do
   use ExUnit.Case
-  doctest HumanPlayer
+  doctest TicTacToe.HumanPlayer
   
 end

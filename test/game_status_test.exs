@@ -1,8 +1,8 @@
-defmodule GameTest do
+defmodule TicTacToe.GameTest do
   use ExUnit.Case
-  doctest GameStatus
+  doctest TicTacToe.GameStatus
 
-  import GameStatus
+  import TicTacToe.GameStatus
 
   defmodule FakeBoard do
     def is_full(_), do: true

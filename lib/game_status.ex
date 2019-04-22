@@ -1,4 +1,4 @@
-defmodule GameStatus do
+defmodule TicTacToe.GameStatus do
   @win_combos [
     {1, 2, 3}, 
     {4, 5, 6},

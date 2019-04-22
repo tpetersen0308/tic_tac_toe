@@ -7,7 +7,7 @@ defmodule TicTacToe.MixProject do
       version: "0.1.0",
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
-      escript: [main_module: CLI],
+      escript: [main_module: TicTacToe.CLI],
       deps: deps(),
       elixirc_paths: compiler_paths(Mix.env())
     ]

@@ -1,4 +1,4 @@
-defmodule GameManager do
+defmodule TicTacToe.GameManager do
 
   def start(deps, continue \\ true)
 

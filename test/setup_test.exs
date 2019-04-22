@@ -1,9 +1,9 @@
-defmodule SetupTest do
+defmodule TicTacToe.SetupTest do
   use ExUnit.Case
 
-  import Setup
+  import TicTacToe.Setup
 
-  doctest Setup
+  doctest TicTacToe.Setup
 
   defmodule FakeIO do
     def invalid_selection(_,_), do: nil

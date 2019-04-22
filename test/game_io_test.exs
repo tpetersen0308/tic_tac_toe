@@ -1,12 +1,12 @@
-defmodule GameIOTest do
+defmodule TicTacToe.GameIOTest do
   use ExUnit.Case
-  doctest GameIO
+  doctest TicTacToe.GameIO
 
   import ExUnit.CaptureIO
-  import GameIO
+  import TicTacToe.GameIO
   import Mock
 
-  describe "GameIO.print_board" do
+  describe "print_board" do
     test "it can print the board" do
       board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
       expected_output = "\n X | O | X \n-----------\n O | X | O \n-----------\n O | X | O \n\n"
@@ -42,7 +42,7 @@ defmodule GameIOTest do
     assert formatted_board == format_board(board)
   end
 
-  describe "GameIO.format_rows" do
+  describe "format_rows" do
     test "it can format rows for printing" do
       board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => nil, 9 => "O"} 
       formatted_rows = [" X | 2 | X ", " O | 5 | 6 ", " O | 8 | O "]
@@ -58,7 +58,7 @@ defmodule GameIOTest do
     end
   end
 
-  describe "GameIO.format_cells" do
+  describe "format_cells" do
     test "it can format the cells for each row" do
       board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => nil, 9 => "O"}
       formatted_cells = [" X "," 2 "," X ", " O "," 5 "," 6 ", " O "," 8 "," O "]
@@ -80,7 +80,7 @@ defmodule GameIOTest do
     end)
   end
 
-  describe "GameIO.parse_input" do
+  describe "parse_input" do
     test "it returns an integer when the user enters an integer" do
       assert parse_input("1\n") == 1
     end
@@ -94,16 +94,16 @@ defmodule GameIOTest do
     end
   end
 
-  describe "GameIO.print_results" do
+  describe "print_results" do
     test "it can print the game results for a draw" do
       assert capture_io(fn -> 
-        GameIO.print_result(false)
+        print_result(false)
       end) == "Cat's Game!\n"
     end
 
     test "it can print the game results for the winner" do
       assert capture_io(fn -> 
-        GameIO.print_result("X")
+        print_result("X")
       end) == "X won!\n"
     end
   end
@@ -111,26 +111,26 @@ defmodule GameIOTest do
   describe "GameIO.continue" do
     test "it can get user's decision to quit" do
       with_mock IO, [gets: fn(_) -> "q\n" end] do
-        assert !GameIO.continue("q")
+        assert !continue("q")
       end
     end
 
     test "it can get user's decision to continue" do
       with_mock IO, [gets: fn(_) -> "a\n" end] do
-        assert GameIO.continue("q")
+        assert continue("q")
       end 
     end
   end
 
   test "it can get the user's player choice" do
     capture_io([input: "1"], fn -> 
-      assert GameIO.get_player_selection == "1"
+      assert get_player_selection() == "1"
     end)
   end
 
   test "it can get the user's game mode choice" do
     capture_io([input: "1"], fn -> 
-      assert GameIO.get_game_mode_selection == "1"
+      assert get_game_mode_selection() == "1"
     end)
   end
 end

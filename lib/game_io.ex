@@ -1,4 +1,4 @@
-defmodule GameIO do
+defmodule TicTacToe.GameIO do
   
   def print_board(board) do
     formatted_board = format_board(board)

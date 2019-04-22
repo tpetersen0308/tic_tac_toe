@@ -1,4 +1,4 @@
-defmodule Board do
+defmodule TicTacToe.Board do
   def empty(row_size \\ 3) do
     board_size = row_size * row_size 
     Enum.reduce(1..board_size, %{}, &(Map.put_new(&2, &1, nil)))

@@ -1,8 +1,8 @@
-defmodule BoardTest do
+defmodule TicTacToe.BoardTest do
   use ExUnit.Case
-  doctest Board
+  doctest TicTacToe.Board
 
-  import Board
+  import TicTacToe.Board
 
   @empty_board empty()
   @full_board %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
