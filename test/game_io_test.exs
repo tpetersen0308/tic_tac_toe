@@ -123,14 +123,14 @@ defmodule TicTacToe.GameIOTest do
   end
 
   test "it can get the user's player choice" do
-    capture_io([input: "1"], fn -> 
-      assert get_player_selection() == "1"
+    capture_io([input: "1\n"], fn -> 
+      assert get_player_selection() == 1
     end)
   end
 
   test "it can get the user's game mode choice" do
-    capture_io([input: "1"], fn -> 
-      assert get_game_mode_selection() == "1"
+    capture_io([input: "1\n"], fn -> 
+      assert get_game_mode_selection() == 1
     end)
   end
 end

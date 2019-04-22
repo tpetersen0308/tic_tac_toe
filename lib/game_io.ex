@@ -37,10 +37,12 @@ defmodule TicTacToe.GameIO do
 
   def get_player_selection() do
     IO.gets("Enter a number to select a player:\n  1 >> Player 1\n  2 >> Player 2\n  ")
+      |> parse_input
   end
 
   def get_game_mode_selection() do
     IO.gets("Enter a number to select a game mode:\n  1 >> Human vs. Human\n  2 >> Human vs. Computer\n  ")
+      |> parse_input
   end
 
   def parse_input(input) do
@@ -49,14 +51,6 @@ defmodule TicTacToe.GameIO do
       parsed == :error or elem(parsed, 1) !== "\n" -> String.trim(input) 
       true -> elem(parsed, 0)
     end
-  end
-
-  def player_selection() do
-    get_player_selection() |> parse_input()
-  end
-
-  def game_mode_selection() do
-    get_game_mode_selection() |> parse_input()
   end
 
   def invalid_move(move, msg) do
