@@ -23,6 +23,7 @@ defmodule TicTacToe.GameManagerTest do
   end
 
   defmodule FakeComputer do
+    def move(_,_), do: Helpers.Stack.pop()
   end
 
   defmodule FakeGame do
@@ -42,6 +43,46 @@ defmodule TicTacToe.GameManagerTest do
       }
       
       players = {%{token: "X", human: true}, %{token: "O", human: true}}
+      board = %{ 1 => nil, 2 => nil, 3 => nil, 4 => nil, 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil }
+
+      Helpers.Stack.setup([1,4,2,5,3])
+
+      assert play(fake_deps, board, players) == %{ 1 => "X", 2 => "X", 3 => "X", 4 => "O", 5 => "O", 6 => nil, 7 => nil, 8 => nil, 9 => nil }
+    
+      Helpers.Stack.teardown
+    end
+
+    test "it can execute a human vs computer game loop" do
+      fake_deps = %{
+        game_status: FakeGame,
+        board_manager: FakeBoard,
+        user_interface: FakeIO,
+        validator: FakeValidator,
+        human_player: FakeHuman,
+        computer_player: FakeComputer
+      }
+      
+      players = {%{token: "X", human: true}, %{token: "O", human: false}}
+      board = %{ 1 => nil, 2 => nil, 3 => nil, 4 => nil, 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil }
+
+      Helpers.Stack.setup([1,4,2,5,3])
+
+      assert play(fake_deps, board, players) == %{ 1 => "X", 2 => "X", 3 => "X", 4 => "O", 5 => "O", 6 => nil, 7 => nil, 8 => nil, 9 => nil }
+    
+      Helpers.Stack.teardown
+    end
+
+    test "it can execute a computer vs human game loop" do
+      fake_deps = %{
+        game_status: FakeGame,
+        board_manager: FakeBoard,
+        user_interface: FakeIO,
+        validator: FakeValidator,
+        human_player: FakeHuman,
+        computer_player: FakeComputer
+      }
+      
+      players = {%{token: "X", human: false}, %{token: "O", human: true}}
       board = %{ 1 => nil, 2 => nil, 3 => nil, 4 => nil, 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil }
 
       Helpers.Stack.setup([1,4,2,5,3])
