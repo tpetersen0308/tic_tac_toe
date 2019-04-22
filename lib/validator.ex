@@ -1,5 +1,5 @@
 defmodule TicTacToe.Validator do
-  def validate_move(board, move) do
+  def validate_move(move, board) do
     cond do
       not is_integer(move) -> {move, false, "an integer"}
       move not in 1..map_size(board) -> {move, false, "within range"}
