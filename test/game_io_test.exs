@@ -9,7 +9,7 @@ defmodule TicTacToe.GameIOTest do
   describe "print_board" do
     test "it can print the board" do
       board = %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
-      expected_output = "\n X | O | X \n-----------\n O | X | O \n-----------\n O | X | O \n\n"
+      expected_output = "\n X | O | X \n-----------\n O | X | O \n-----------\n O | X | O \n"
       
       assert capture_io(fn -> 
         print_board(board)
@@ -18,7 +18,7 @@ defmodule TicTacToe.GameIOTest do
 
     test "it can print a board of an arbitrary size" do
       board = %{1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => nil, 8 => nil, 9 => "O", 10 => nil, 11 => "X", 12 => "O", 13 => "O", 14 => nil, 15 => "X", 16 => "O"}
-      expected_output = "\n X | 2 | X | O \n---------------\n X | O | 7 | 8 \n---------------\n O |10 | X | O \n---------------\n O |14 | X | O \n\n"
+      expected_output = "\n X | 2 | X | O \n---------------\n X | O | 7 | 8 \n---------------\n O |10 | X | O \n---------------\n O |14 | X | O \n"
 
       assert capture_io(fn -> 
         print_board(board)
@@ -27,7 +27,7 @@ defmodule TicTacToe.GameIOTest do
 
     test "it can print the board with the correct numbers in unoccupied positions" do
       board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => nil, 9 => "O"}
-      expected_output = "\n X | 2 | X \n-----------\n O | 5 | 6 \n-----------\n O | 8 | O \n\n"
+      expected_output = "\n X | 2 | X \n-----------\n O | 5 | 6 \n-----------\n O | 8 | O \n"
       
       assert capture_io(fn -> 
         print_board(board)
