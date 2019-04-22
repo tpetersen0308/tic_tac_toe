@@ -25,6 +25,10 @@ defmodule TicTacToe.GameManagerTest do
     def validate_numeric_selection("2\n",_), do: {2, true}
   end
 
+  defmodule FakeHuman do
+    def move(_,_,_), do: 3
+  end
+
   defmodule FakeComputer do
   end
 
@@ -44,7 +48,8 @@ defmodule TicTacToe.GameManagerTest do
       board_manager: FakeBoard,
       game_status: FakeGame,
       validator: FakeValidator,
-      computer: FakeComputer,  
+      human_player: FakeHuman,
+      computer_player: FakeComputer,  
     }
 
     players = {%{token: "X", human: true}, %{token: "O", human: true}}

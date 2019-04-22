@@ -43,7 +43,8 @@ defmodule TicTacToe.GameManager do
       user_interface: deps.user_interface,
       board_manager: deps.board_manager,
       validator: deps.validator,
-      computer: deps.computer
+      human_player: deps.human_player,
+      computer_player: deps.computer_player
     }
 
     {player1 , player2} = players
@@ -55,39 +56,15 @@ defmodule TicTacToe.GameManager do
   def turn(deps, board, player) do
     move = cond do 
       player.human -> 
-        human_turn_deps = %{
+        human_player_deps = %{
           user_interface: deps.user_interface, 
           validator: deps.validator
         }
 
         deps.user_interface.print_board(board)
-        human_turn(human_turn_deps, board, player)
-      true -> deps.computer.turn(deps.board_manager, board)
+        deps.human_player.move(human_player_deps, board, player)
+      true -> deps.computer_player.turn(deps.board_manager, board)
     end
     deps.board_manager.update(board, move, player.token)
-  end
-
-  def human_turn(deps, board, player, valid_move \\ false)
-
-  def human_turn(deps, board, player, valid_move) when not valid_move do
-    {user_interface, validator} = {deps.user_interface, deps.validator}
-
-    input = user_interface.get_move(player.token)
-    {move, is_valid, msg} = validator.validate_move(board, input)
-
-    valid_move = cond do 
-      not is_valid -> 
-        user_interface.print_board(board)
-        user_interface.invalid_move(move, msg)
-        is_valid
-      true -> 
-        move
-    end
-    
-    human_turn(deps, board, player, valid_move)
-  end
-
-  def human_turn(_deps, _board, _player, valid_move) do
-    valid_move
   end
 end
