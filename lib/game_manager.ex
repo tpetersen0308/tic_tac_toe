@@ -67,27 +67,27 @@ defmodule GameManager do
     deps.board_manager.update(board, move, player.token)
   end
 
-  def human_turn(deps, board, player, move_is_valid \\ false)
-  
-  def human_turn(_deps, board, _player, true) do
-    board
-  end
+  def human_turn(deps, board, player, valid_move \\ false)
 
-  def human_turn(deps, board, player, _move_is_valid) do
+  def human_turn(deps, board, player, valid_move) when not valid_move do
     {user_interface, validator} = {deps.user_interface, deps.validator}
 
-    user_move = user_interface.get_move(player.token)
-    {user_move, is_valid, msg} = validator.validate_move(board, user_move)
+    input = user_interface.get_move(player.token)
+    {move, is_valid, msg} = validator.validate_move(board, input)
 
-    board = cond do 
+    valid_move = cond do 
       not is_valid -> 
         user_interface.print_board(board)
-        user_interface.invalid_move(user_move, msg)
-        board
+        user_interface.invalid_move(move, msg)
+        is_valid
       true -> 
-        user_move
-      end
+        move
+    end
     
-    human_turn(deps, board, player, is_valid)
+    human_turn(deps, board, player, valid_move)
+  end
+
+  def human_turn(_deps, _board, _player, valid_move) do
+    valid_move
   end
 end
