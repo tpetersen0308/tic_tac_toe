@@ -9,7 +9,7 @@ defmodule TicTacToe.HumanPlayer do
     valid_move = cond do
       not is_valid -> 
         deps.user_interface.print_board(board)
-        deps.user_interface.invalid_move(move, msg)
+        deps.user_interface.invalid_input(move, msg)
         is_valid
       true -> move
     end
