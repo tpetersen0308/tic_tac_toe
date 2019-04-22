@@ -3,7 +3,7 @@ defmodule GameManager do
   def start(deps, continue \\ true)
 
   def start(deps, true) do
-    { user_interface, game_status, board_manager } = { deps.user_interface, deps.game_status, deps.board_manager} 
+    { user_interface, game_status, game_setup } = { deps.user_interface, deps.game_status, deps.game_setup } 
     
     setup_deps = %{
       user_interface: deps.user_interface,
@@ -16,7 +16,7 @@ defmodule GameManager do
 
     user_interface.welcome_message
 
-    {board, players} = deps.game_setup.game(setup_deps)
+    {board, players} = game_setup.game(setup_deps)
     board = play(play_deps, board, players)
 
     user_interface.print_board(board)
