@@ -4,7 +4,6 @@ defmodule TicTacToe.GameIOTest do
 
   import ExUnit.CaptureIO
   import TicTacToe.GameIO
-  import Mock
 
   describe "print_board" do
     test "it can print the board" do
@@ -76,7 +75,7 @@ defmodule TicTacToe.GameIOTest do
 
   test "it can prompt the user for input" do
     capture_io([input: "3\n"], fn -> 
-      assert get_move("X") == 3
+      assert get_input(:player1_turn) == 3
     end)
   end
 
@@ -92,39 +91,5 @@ defmodule TicTacToe.GameIOTest do
     test "it returns :error when the user enters an integer followed by anything other than an integer" do
       assert parse_input("1foo") == "1foo"
     end
-  end
-
-  describe "print_results" do
-    test "it can print the game results for a draw" do
-      assert capture_io(fn -> 
-        print_result(false)
-      end) == "Cat's Game!\n"
-    end
-
-    test "it can print the game results for the winner" do
-      assert capture_io(fn -> 
-        print_result("X")
-      end) == "X won!\n"
-    end
-  end
-
-  describe "GameIO.continue" do
-    test "it can get user's decision to quit" do
-      with_mock IO, [gets: fn(_) -> "q\n" end] do
-        assert !continue("q")
-      end
-    end
-
-    test "it can get user's decision to continue" do
-      with_mock IO, [gets: fn(_) -> "a\n" end] do
-        assert continue("q")
-      end 
-    end
-  end
-
-  test "it can get the user's numeric selection" do
-    capture_io([input: "1\n"], fn -> 
-      assert get_numeric_selection("", []) == 1
-    end)
   end
 end

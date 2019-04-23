@@ -56,43 +56,11 @@ defmodule TicTacToe.GameIO do
     Enum.join(formatted_rows, "\n#{spacer}\n")
   end
 
-  def welcome_message() do
-    IO.puts("\nWelcome to Tic Tac Toe!")
-  end
-
-  def get_move(player) do
-    IO.gets("\nIt is #{player}'s turn. Please enter an available position: ")
-      |> parse_input
-  end
-
-  def get_numeric_selection(subj, opts) do
-    header = "\nEnter a number to select a #{subj}:\n  " 
-    menu = opts
-      |> Enum.with_index(1)
-      |> Enum.reduce("", fn ({opt, num}, acc) -> acc <> "#{num} >> #{opt}\n  " end)
-    msg = header <> menu
-    IO.gets(msg)
-      |> parse_input
-  end
-
   def parse_input(input) do
     parsed = Integer.parse(input)
     cond do
       parsed == :error or elem(parsed, 1) !== "\n" -> String.trim(input) 
       true -> elem(parsed, 0)
     end
-  end
-
-  def invalid_input(input, msg) do
-    IO.puts("\n'#{input}' is not #{msg}. Please try again.")
-  end
-
-  def print_result(winner) do
-    if winner, do: IO.puts("#{winner} won!"), else: IO.puts("Cat's Game!")
-  end
-
-  def continue(quit_char) do
-    input = IO.gets("\nEnter <#{quit_char}> to quit, any other key to play again: ") 
-    String.trim(input) !== quit_char
   end
 end
