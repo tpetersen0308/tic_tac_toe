@@ -1,4 +1,5 @@
 defmodule TicTacToe.GameManager do
+  @quit_char Application.get_env(:tic_tac_toe, :quit_char)
 
   def start(deps, continue \\ true)
 
@@ -28,7 +29,7 @@ defmodule TicTacToe.GameManager do
       true -> user_interface.message(:tie)
     end
 
-    continue = user_interface.get_input(:continue) != "q"
+    continue = user_interface.get_input(:continue) != @quit_char
     start(deps, continue)
   end
 

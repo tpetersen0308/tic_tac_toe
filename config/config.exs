@@ -12,7 +12,8 @@ config :tic_tac_toe,
   messages: TicTacToe.Messages,
   formatter: TicTacToe.BoardFormatter,
   player1_token: "X",
-  player2_token: "O"
+  player2_token: "O",
+  quit_char: "q"
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment

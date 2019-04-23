@@ -1,4 +1,6 @@
 defmodule TicTacToe.Messages do
+  @quit_char Application.get_env(:tic_tac_toe, :quit_char)
+
   def get(term) do
     messages = %{
       welcome: "\nWelcome to Tic Tac Toe!",
@@ -13,7 +15,7 @@ defmodule TicTacToe.Messages do
       player1_win: "Player one won!",
       player2_win: "Player two won!",
       tie: "Cat's game!",
-      continue: "\nEnter <q> to quit, any other key to play again: ",
+      continue: "\nEnter <#{@quit_char}> to quit, any other key to play again: ",
       quit: "Goodbye!",
     }
 
