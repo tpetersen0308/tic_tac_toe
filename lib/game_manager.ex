@@ -22,7 +22,7 @@ defmodule TicTacToe.GameManager do
 
     user_interface.print_board(board)
 
-    {{player1, player2}, winner} = {players, game_status.check_win(board)}
+    {{player1, player2}, winner} = {players, game_status.winner(board)}
     cond do
       winner == player1.token -> user_interface.message(:player1_win)
       winner == player2.token -> user_interface.message(:player2_win)

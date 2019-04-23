@@ -59,10 +59,14 @@ defmodule TicTacToe.GameTest do
             |> Map.put(unquote(pos2), "X")
             |> Map.put(unquote(pos3), "X")
 
-          assert check_win(board) == "X"
+          assert check_win(board) == {unquote(pos1), unquote(pos2), unquote(pos3)}
         end 
       end
     )
+  end
+
+  test "it can return the winner's token" do
+    assert winner(%{ 1 => "X", 2 => "X", 3 => "X", 4 => nil, 5 => nil, 6 => "O", 7 => nil, 8 => "O", 9 => nil }) == "X"
   end
 
   test "it can check for a draw" do

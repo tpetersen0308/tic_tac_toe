@@ -11,9 +11,13 @@ defmodule TicTacToe.GameStatus do
   ]
 
   def check_win(board) do
-    case @win_combos |> Enum.find(fn {pos1, pos2, pos3} ->
+    @win_combos |> Enum.find(fn {pos1, pos2, pos3} ->
       board[pos1] == board[pos2] and board[pos1] == board[pos3] and !!board[pos1]
-    end) do
+    end)
+  end
+
+  def winner(board) do
+    case check_win(board) do
       {winner, _, _} -> board[winner]
       nil -> nil
     end
