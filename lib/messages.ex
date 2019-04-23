@@ -1,4 +1,4 @@
-defmodule Messages do
+defmodule TicTacToe.Messages do
   def get(term) do
     messages = %{
       welcome: "\nWelcome to Tic Tac Toe!",

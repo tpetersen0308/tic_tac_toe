@@ -8,7 +8,7 @@ use Mix.Config
 # if you want to provide default values for your application for
 # third-party users, it should be done in your "mix.exs" file.
 
-config :tic_tac_toe, :messages, Messages
+config :tic_tac_toe, :messages, TicTacToe.Messages
 config :tic_tac_toe, :formatter, TicTacToe.BoardFormatter
 
 # It is also possible to import configuration files, relative to this
