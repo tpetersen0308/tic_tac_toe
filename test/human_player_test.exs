@@ -4,10 +4,9 @@ defmodule TicTacToe.HumanPlayerTest do
   import TicTacToe.HumanPlayer
 
   defmodule FakeIO do
-    def get_move(_), do: Helpers.Stack.pop()
+    def get_input(_), do: Helpers.Stack.pop()
     def print_board(_), do: nil
     def message(_), do: nil
-    # def invalid_input(_,_), do: nil
   end
 
   defmodule FakeValidator do
