@@ -14,22 +14,25 @@ defmodule TicTacToe.GameManager do
 
     play_deps = Map.delete(deps, :game_setup)
 
-    user_interface.welcome_message
+    user_interface.message(:welcome)
 
     {board, players} = game_setup.game(setup_deps)
     board = play(play_deps, board, players)
 
     user_interface.print_board(board)
 
-    winner = game_status.check_win(board)
-    user_interface.print_result(winner) 
+    case game_status.check_win(board) do
+      "X" -> user_interface.message(:player1_win)
+      "O" -> user_interface.message(:player2_win)
+      nil -> user_interface.message(:tie)
+    end
 
-    continue = user_interface.continue("q")
+    continue = user_interface.get_input(:continue) != "q"
     start(deps, continue)
   end
 
-  def start(_deps, _continue) do
-    IO.puts("Goodbye")
+  def start(deps, _continue) do
+    deps.user_interface.message(:quit)
   end
 
   def play(deps, board, players, over \\ false)
