@@ -1,10 +1,9 @@
 defmodule TicTacToe.HumanPlayer do
 
-  def move(deps, board, player, valid_move \\ false)
+  def move(deps, board, current_player_move, valid_move \\ false)
 
-  def move(deps, board, player, valid_move) when not valid_move do
-    current_player_turn = if player.token == "X", do: :player1_turn, else: :player2_turn
-    { move, is_valid, invalid_input_msg } = deps.user_interface.get_input(current_player_turn)
+  def move(deps, board, current_player_move, valid_move) when not valid_move do
+    { move, is_valid, invalid_input_msg } = deps.user_interface.get_input(current_player_move)
       |> deps.validator.validate_move(board)
 
     valid_move = cond do
@@ -15,7 +14,7 @@ defmodule TicTacToe.HumanPlayer do
       true -> move
     end
 
-    move(deps, board, player, valid_move)
+    move(deps, board, current_player_move, valid_move)
   end
 
   def move(_deps, _board, _player, valid_move) do

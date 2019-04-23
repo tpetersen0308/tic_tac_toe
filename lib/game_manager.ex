@@ -21,10 +21,11 @@ defmodule TicTacToe.GameManager do
 
     user_interface.print_board(board)
 
-    case game_status.check_win(board) do
-      "X" -> user_interface.message(:player1_win)
-      "O" -> user_interface.message(:player2_win)
-      nil -> user_interface.message(:tie)
+    {{player1, player2}, winner} = {players, game_status.check_win(board)}
+    cond do
+      winner == player1.token -> user_interface.message(:player1_win)
+      winner == player2.token -> user_interface.message(:player2_win)
+      true -> user_interface.message(:tie)
     end
 
     continue = user_interface.get_input(:continue) != "q"
@@ -60,14 +61,20 @@ defmodule TicTacToe.GameManager do
     move = cond do 
       player.human -> 
         human_player_deps = %{
-          user_interface: deps.user_interface, 
+          user_interface: deps.user_interface,
+          board_manager: deps.board_manager,
           validator: deps.validator
         }
 
         deps.user_interface.print_board(board)
-        deps.human_player.move(human_player_deps, board, player)
+        current_player_turn = whos_turn(deps.board_manager, board)
+        deps.human_player.move(human_player_deps, board, current_player_turn)
       true -> deps.computer_player.move(deps.board_manager, board)
     end
     deps.board_manager.update(board, move, player.token)
+  end
+
+  defp whos_turn(board_manager, board) do
+    if Integer.mod(board_manager.turn_count(board), 2) == 0, do: :player1_turn, else: :player2_turn
   end
 end

@@ -13,6 +13,7 @@ defmodule TicTacToe.GameManagerTest do
     def update(%{ 1 => "X", 2 => nil, 3 => nil, 4 => "O", 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil }, 2, "X"), do: %{ 1 => "X", 2 => "X", 3 => nil, 4 => "O", 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil }
     def update(%{ 1 => "X", 2 => "X", 3 => nil, 4 => "O", 5 => nil, 6 => nil, 7 => nil, 8 => nil, 9 => nil }, 5, "O"), do: %{ 1 => "X", 2 => "X", 3 => nil, 4 => "O", 5 => "O", 6 => nil, 7 => nil, 8 => nil, 9 => nil }
     def update(%{ 1 => "X", 2 => "X", 3 => nil, 4 => "O", 5 => "O", 6 => nil, 7 => nil, 8 => nil, 9 => nil }, 3, "X"), do: %{ 1 => "X", 2 => "X", 3 => "X", 4 => "O", 5 => "O", 6 => nil, 7 => nil, 8 => nil, 9 => nil }
+    def turn_count(_), do: 0
   end
 
   defmodule FakeValidator do

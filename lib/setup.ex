@@ -1,4 +1,7 @@
 defmodule TicTacToe.Setup do
+  @player1_token Application.get_env(:tic_tac_toe, :player1_token)
+  @player2_token Application.get_env(:tic_tac_toe, :player2_token)
+
   def game(deps, game_mode \\ nil, is_valid_game_mode \\ false)
 
   def game(deps, game_mode, true) do
@@ -24,14 +27,14 @@ defmodule TicTacToe.Setup do
   def players(deps, game_mode, selection \\ nil, is_valid_player \\ false)
 
   def players(_deps, _game_mode, selection, true) do
-    {%{token: "X", human: selection == 1}, %{token: "O", human: selection == 2}}
+    {%{token: @player1_token, human: selection == 1}, %{token: @player2_token, human: selection == 2}}
   end
 
   def players(deps, game_mode, _selection, _is_valid_player) do
     {user_interface, validator} = {deps.user_interface, deps.validator}
 
     cond do
-      game_mode == 1 -> {%{token: "X", human: true}, %{token: "O", human: true}}
+      game_mode == 1 -> {%{token: @player1_token, human: true}, %{token: @player2_token, human: true}}
       true -> 
         {selection, is_valid} = user_interface.get_input(:player)
         |> validator.validate_numeric_selection(1..2)
