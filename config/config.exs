@@ -8,10 +8,11 @@ use Mix.Config
 # if you want to provide default values for your application for
 # third-party users, it should be done in your "mix.exs" file.
 
-config :tic_tac_toe, :messages, TicTacToe.Messages
-config :tic_tac_toe, :formatter, TicTacToe.BoardFormatter
-config :tic_tac_toe, :player1_token, "X"
-config :tic_tac_toe, :player2_token, "O"
+config :tic_tac_toe, 
+  messages: TicTacToe.Messages,
+  formatter: TicTacToe.BoardFormatter,
+  player1_token: "X",
+  player2_token: "O"
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
