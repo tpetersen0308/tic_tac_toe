@@ -9,6 +9,7 @@ use Mix.Config
 # third-party users, it should be done in your "mix.exs" file.
 
 config :tic_tac_toe, :messages, Messages
+config :tic_tac_toe, :formatter, TicTacToe.BoardFormatter
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
