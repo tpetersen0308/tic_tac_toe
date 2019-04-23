@@ -14,7 +14,8 @@ defmodule TicTacToe.GameIO do
       player1_win: "Player one won!",
       player2_win: "Player two won!",
       tie: "Cat's game!",
-      continue: "\nEnter <q> to quit, any other key to play again: "
+      continue: "\nEnter <q> to quit, any other key to play again: ",
+      quit: "Goodbye!",
     }
 
     messages[term]
