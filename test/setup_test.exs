@@ -6,8 +6,8 @@ defmodule TicTacToe.SetupTest do
   doctest TicTacToe.Setup
 
   defmodule FakeIO do
-    def invalid_input(_,_), do: nil
-    def get_numeric_selection(_,_) do
+    def message(_), do: nil
+    def get_input(_) do
       Helpers.Stack.pop()
     end
   end
