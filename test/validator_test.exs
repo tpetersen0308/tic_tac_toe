@@ -8,28 +8,28 @@ defmodule TicTacToe.ValidatorTest do
       board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
       move = "foo"
       
-      assert validate_move(move, board) == {move, false, :nan}
+      assert validate_move(move, board) == {:error, move, :nan}
     end
 
     test "it returns results when a move is out of board range" do
       board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
       move = 10
 
-      assert validate_move(move, board) == {move, false, :not_available}
+      assert validate_move(move, board) == {:error, move, :not_available}
     end
 
     test "it returns results when a move is unavailable" do
       board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
       move = 3
 
-      assert validate_move(move, board) == {move, false, :not_available}
+      assert validate_move(move, board) == {:error, move, :not_available}
     end
 
     test "it returns results when a move is valid" do
       board = %{ 1 => "X", 2 => nil, 3 => "X", 4 => "O", 5 => nil, 6 => nil, 7 => "O", 8 => "X", 9 => "O"}
       move = 5
 
-      assert validate_move(move, board) == {move, true, nil}   
+      assert validate_move(move, board) == {:ok, move, nil}   
     end
   end
 

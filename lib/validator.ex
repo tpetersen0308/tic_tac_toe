@@ -1,9 +1,9 @@
 defmodule TicTacToe.Validator do
   def validate_move(move, board) do
     cond do
-      not is_integer(move) -> {move, false, :nan}
-      move not in 1..map_size(board) or !!board[move] -> {move, false, :not_available}
-      true -> {move, true, nil}
+      not is_integer(move) -> {:error, move, :nan}
+      move not in 1..map_size(board) or !!board[move] -> {:error, move, :not_available}
+      true -> {:ok, move, nil}
     end
   end
 
