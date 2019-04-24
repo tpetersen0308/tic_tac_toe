@@ -3,6 +3,8 @@ defmodule TicTacToe.Setup do
   @player2_token Application.get_env(:tic_tac_toe, :player2_token)
   @human_v_human_mode Application.get_env(:tic_tac_toe, :human_v_human_mode)
   @human_v_computer_mode Application.get_env(:tic_tac_toe, :human_v_computer_mode)
+  @player1_selector Application.get_env(:tic_tac_toe, :player1_selector)
+  @player2_selector Application.get_env(:tic_tac_toe, :player2_selector)
 
   def game(deps) do
     validation_result = deps.user_interface.get_input(:game_mode)
@@ -35,7 +37,7 @@ defmodule TicTacToe.Setup do
       human_v_computer_players(deps)
     else 
       { :ok, player_selection } -> 
-        {%{token: @player1_token, human: player_selection == 1}, %{token: @player2_token, human: player_selection == 2}}
+        {%{token: @player1_token, human: player_selection == @player1_selector}, %{token: @player2_token, human: player_selection == @player2_selector}}
     end
   end
 end

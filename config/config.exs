@@ -15,7 +15,9 @@ config :tic_tac_toe,
   player2_token: "O",
   quit_char: "q",
   human_v_human_mode: 1,
-  human_v_computer_mode: 2
+  human_v_computer_mode: 2,
+  player1_selector: 1,
+  player2_selector: 2
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
