@@ -5,10 +5,12 @@ defmodule TicTacToe.Setup do
   @human_v_computer_mode Application.get_env(:tic_tac_toe, :human_v_computer_mode)
   @player1_selector Application.get_env(:tic_tac_toe, :player1_selector)
   @player2_selector Application.get_env(:tic_tac_toe, :player2_selector)
+  @num_mode_options Application.get_env(:tic_tac_toe, :num_mode_options)
+  @num_player_options Application.get_env(:tic_tac_toe, :num_player_options)
 
   def game(deps) do
     validation_result = deps.user_interface.get_input(:game_mode)
-      |> deps.validator.validate_numeric_selection(1..2)
+      |> deps.validator.validate_numeric_selection(@num_mode_options)
     with {:error, _game_mode_selection} <- validation_result do
       deps.user_interface.message(:invalid_game_mode)
       game(deps)
@@ -31,7 +33,7 @@ defmodule TicTacToe.Setup do
 
   defp human_v_computer_players(deps) do
     validation_result = deps.user_interface.get_input(:player)
-      |> deps.validator.validate_numeric_selection(1..2)
+      |> deps.validator.validate_numeric_selection(@num_player_options)
     with { :error, _player_selection } <- validation_result do
       deps.user_interface.message(:invalid_player)
       human_v_computer_players(deps)
