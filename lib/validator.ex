@@ -9,8 +9,8 @@ defmodule TicTacToe.Validator do
 
   def validate_numeric_selection(selection, range) do
     cond do
-      selection not in range -> {selection, false}
-      true -> {selection, true}
+      selection not in range -> {:error, selection}
+      true -> {:ok, selection}
     end
   end
 end

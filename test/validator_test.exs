@@ -34,18 +34,18 @@ defmodule TicTacToe.ValidatorTest do
   end
 
   describe "valide_numeric_selection" do
-    test "it returns false when a selection is not in the valid range of options" do
+    test "it returns :error with the user's selection when it is not in the valid range of options" do
       options = 1..10
       selection = 11
 
-      assert validate_numeric_selection(selection, options) == {selection, false}
+      assert validate_numeric_selection(selection, options) == {:error, selection}
     end
 
-    test "it returns the user's selection when it is in the valid range of options" do
+    test "it returns :ok with the user's selection when it is in the valid range of options" do
       options = 1..10
       selection = 8
 
-      assert validate_numeric_selection(selection, options) == {selection, true}
+      assert validate_numeric_selection(selection, options) == {:ok, selection}
     end
   end
 end
