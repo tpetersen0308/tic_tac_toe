@@ -13,7 +13,9 @@ config :tic_tac_toe,
   formatter: TicTacToe.BoardFormatter,
   player1_token: "X",
   player2_token: "O",
-  quit_char: "q"
+  quit_char: "q",
+  human_v_human_mode: 1,
+  human_v_computer_mode: 2
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
