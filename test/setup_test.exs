@@ -17,9 +17,9 @@ defmodule TicTacToe.SetupTest do
   end
 
   defmodule FakeValidator do
-    def validate_numeric_selection("foo", 1..2), do: {"foo", false}
-    def validate_numeric_selection(1, 1..2), do: {1, true}
-    def validate_numeric_selection(2, 1..2), do: {2, true}
+    def validate_numeric_selection("foo", 1..2), do: {:error, "foo"}
+    def validate_numeric_selection(1, 1..2), do: {:ok, 1}
+    def validate_numeric_selection(2, 1..2), do: {:ok, 2}
   end
 
   describe "game" do
