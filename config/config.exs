@@ -8,18 +8,18 @@ use Mix.Config
 # if you want to provide default values for your application for
 # third-party users, it should be done in your "mix.exs" file.
 
-# You can configure your application as:
-#
-#     config :tic_tac_toe, key: :value
-#
-# and access this configuration in your application as:
-#
-#     Application.get_env(:tic_tac_toe, :key)
-#
-# You can also configure a third-party app:
-#
-#     config :logger, level: :info
-#
+config :tic_tac_toe, 
+  messages: TicTacToe.Messages,
+  formatter: TicTacToe.BoardFormatter,
+  player1_token: "X",
+  player2_token: "O",
+  quit_char: "q",
+  human_v_human_mode: 1,
+  human_v_computer_mode: 2,
+  player1_selector: 1,
+  player2_selector: 2,
+  num_mode_options: 1..2,
+  num_player_options: 1..2
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment

@@ -1,8 +1,8 @@
-defmodule BoardTest do
+defmodule TicTacToe.BoardTest do
   use ExUnit.Case
-  doctest Board
+  doctest TicTacToe.Board
 
-  import Board
+  import TicTacToe.Board
 
   @empty_board empty()
   @full_board %{ 1 => "X", 2 => "O", 3 => "X", 4 => "O", 5 => "X", 6 => "O", 7 => "O", 8 => "X", 9 => "O"}
@@ -40,5 +40,12 @@ defmodule BoardTest do
     board = update(board, 5, "X") |> update(8, "O") |> update(2, "X")
 
     assert 3 == turn_count(board)
+  end
+
+  test "it can return the available positions" do
+    board = %{1 => "X", 2 => "O", 3 => nil, 4 => "X", 5 => nil, 6 => nil, 7 => "O", 8 => nil, 9 => "X" }
+    expected_result = [3, 5, 6, 8]
+
+    assert available_positions(board) == expected_result
   end
 end

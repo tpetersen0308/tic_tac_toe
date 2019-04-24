@@ -1,4 +1,4 @@
-defmodule Board do
+defmodule TicTacToe.Board do
   def empty(row_size \\ 3) do
     board_size = row_size * row_size 
     Enum.reduce(1..board_size, %{}, &(Map.put_new(&2, &1, nil)))
@@ -14,5 +14,9 @@ defmodule Board do
 
   def turn_count(board) do
     Enum.filter(Map.values(board), &(&1)) |> Enum.count
+  end
+
+  def available_positions(board) do
+    Map.keys(:maps.filter fn _, v -> !v end, board)
   end
 end
