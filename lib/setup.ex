@@ -28,12 +28,12 @@ defmodule TicTacToe.Setup do
   defp human_v_computer_players(deps) do
     validation_result = deps.user_interface.get_input(:player)
       |> deps.validator.validate_numeric_selection(1..2)
-    with { :error, selection } <- validation_result do
+    with { :error, _player_selection } <- validation_result do
       deps.user_interface.message(:invalid_player)
       human_v_computer_players(deps)
     else 
-      { :ok, selection } -> 
-        {%{token: @player1_token, human: selection == 1}, %{token: @player2_token, human: selection == 2}}
+      { :ok, player_selection } -> 
+        {%{token: @player1_token, human: player_selection == 1}, %{token: @player2_token, human: player_selection == 2}}
     end
   end
 end
