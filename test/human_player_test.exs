@@ -10,10 +10,10 @@ defmodule TicTacToe.HumanPlayerTest do
   end
 
   defmodule FakeValidator do
-    def validate_move("foo", _), do: {"foo", false, ""}
-    def validate_move("10\n", _), do: {"10", false, ""}
-    def validate_move("5\n", _), do: {5, false, ""}
-    def validate_move("6\n", _), do: {6, true, nil}
+    def validate_move("foo", _), do: {:error, "foo", ""}
+    def validate_move("10\n", _), do: {:error, "10", ""}
+    def validate_move("5\n", _), do: {:error, 5, ""}
+    def validate_move("6\n", _), do: {:ok, 6, nil}
   end
   
   test "move validates input and returns move when valid." do
