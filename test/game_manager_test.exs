@@ -24,7 +24,7 @@ defmodule TicTacToe.GameManagerTest do
   end
 
   defmodule FakeComputer do
-    def move(_,_), do: Helpers.Stack.pop()
+    def move(_,_,_), do: Helpers.Stack.pop()
   end
 
   defmodule FakeGame do
@@ -118,6 +118,7 @@ defmodule TicTacToe.GameManagerTest do
       fake_deps = %{
         user_interface: FakeIO,
         board_manager: FakeBoard,
+        game_status: FakeGame,
         human_player: FakeHuman,
         computer_player: FakeComputer,
         validator: FakeValidator
