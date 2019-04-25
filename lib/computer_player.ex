@@ -3,10 +3,10 @@ defmodule TicTacToe.ComputerPlayer do
   @player2_token Application.get_env(:tic_tac_toe, :player2_token)
 
   def move(deps, board, player) do
-    get_best_move(deps, board, player)
+    get_ai_move(deps, board, player)
   end
   
-  def get_best_move(deps, board, player) do
+  def get_ai_move(deps, board, player) do
     max_player = if player.token == @player1_token, do: @player1_token, else: @player2_token
     minimax(deps, board, max_player, max_player).position
   end
