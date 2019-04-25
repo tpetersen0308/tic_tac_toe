@@ -31,10 +31,10 @@ defmodule TicTacToe.ComputerPlayer do
   end
 
   defp score_move(winner, max_player, min_player) do
-    cond do
-      winner == max_player -> %{score: 10}
-      winner == min_player -> %{score: -10}
-      winner == nil -> %{score: 0}
+    case winner do
+      ^max_player -> %{score: 10}
+      ^min_player -> %{score: -10}
+      nil -> %{score: 0}
     end    
   end
 
