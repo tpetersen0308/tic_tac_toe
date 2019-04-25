@@ -47,6 +47,7 @@ defmodule TicTacToe.GameManager do
     turn_deps = %{
       user_interface: deps.user_interface,
       board_manager: deps.board_manager,
+      game_status: deps.game_status,
       validator: deps.validator,
       human_player: deps.human_player,
       computer_player: deps.computer_player
@@ -70,7 +71,12 @@ defmodule TicTacToe.GameManager do
         deps.user_interface.print_board(board)
         current_player_turn = whos_turn(deps.board_manager, board)
         deps.human_player.move(human_player_deps, board, current_player_turn)
-      true -> deps.computer_player.move(deps.board_manager, board)
+      true -> 
+        computer_player_deps = %{
+          board_manager: deps.board_manager,
+          game_status: deps.game_status
+        }
+        deps.computer_player.move(computer_player_deps, board, player)
     end
     deps.board_manager.update(board, move, player.token)
   end
